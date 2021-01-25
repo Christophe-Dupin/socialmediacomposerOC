@@ -1,0 +1,7 @@
+{% autoescape off %}
+Bonjour {{ user.username }},
+
+Merci de cliquer sur le lien, pour confirmer votre inscription,
+http://{{ domain }}{% url 'activate' uidb64=uid %}
+Si vous pensez, que ce n'est pas vous, juste ignorez cet email.
+{% endautoescape %}

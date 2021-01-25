@@ -16,44 +16,50 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'app-home' %}">SocialMediaComposer</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'all_posts' %}">Queue <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'all_posts' %}">Queue</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'all_posts_send' %}">History</a>
         </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item"><img class="rounded-circle nav-account-img" src="{{ user.image.url }}"></li>
-        <li class="nav-item"><a class="nav-link js-scroll-trigger username" href="{% url 'profile' %}">
-            {{user.username}}</a> </li>
-
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle login_logout_menu" type="button" data-toggle="dropdown">
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'profile' %}"><span class="fa fa-life-ring"></span>Paramètres</a>
-              <a class="dropdown-item" href="{% url 'logout' %}"><span class="fa fa-wrench"></span>Se
-                déconnecter</a>
-            </div>
-          </div>
+          <a class="nav-link" href="#">Link</a>
         </li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a></li>
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'register' %}">Register</a>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
         </li>
-        {% endif %}
       </ul>
     </div>
+    <div class="mx-auto order-0">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+      </ul>
+    </div>
+    {% endif %}
   </nav>
   {% block content %}
 
