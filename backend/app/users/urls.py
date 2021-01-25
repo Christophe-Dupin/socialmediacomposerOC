@@ -16,4 +16,5 @@ urlpatterns = [
         name="logout",
     ),
     path("profile/", views.profile, name="profile"),
+    path("activate/<uidb64>", views.activate, name="activate"),
 ]
