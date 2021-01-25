@@ -1,0 +1,28 @@
+.form{
+  margin-top: 120px;
+  margin-bottom: auto;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin-left: 10%;
+
+}
+
+.account-img{
+  height: 120px;
+  width: 120px;
+}
+
+.logout_message{
+  margin-top: 20vh;
+  margin-bottom: 20vh;
+  margin-left: 25vw;
+
+
+}
+.nav-account-img{
+  height: 30px;
+  width: 30px;
+  margin-left: 50%;
+  margin-top: 10%;
+  border:1.5px solid #f5f6fa;
+}

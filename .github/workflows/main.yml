@@ -1,0 +1,100 @@
+name: Continuous Integration and Delivery
+
+on: [push]
+
+env:
+  WEB_IMAGE: docker.pkg.github.com/christophe-dupin/socialmediacomposer/web
+  NGINX_IMAGE: docker.pkg.github.com/christophe-dupin/socialmediacomposer/nginx
+  NODE_IMAGE: docker.pkg.github.com/christophe-dupin/socialmediacomposer/nodeJs
+
+jobs:
+  pytest:
+    env:
+      DJANGO_SETTINGS_MODULE: "config.settings.ci"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v2
+      - name: Add environment variables to .env
+        run: |
+          echo DJANGO_SETTINGS_MODULE=config.settings.ci >> .env
+
+      - name: Set environment variables
+        run: |
+          echo "name=WEB_IMAGE">> $GITHUB_ENV
+          echo "name=NGINX_IMAGE">> $GITHUB_ENV
+
+      - name: Log in to GitHub Packages
+        run: echo ${GITHUB_TOKEN} | docker login -u ${GITHUB_ACTOR} --password-stdin docker.pkg.github.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull images
+        run: |
+          docker pull ${{ env.WEB_IMAGE }} || true
+          docker pull ${{ env.NGINX_IMAGE }} || true
+
+      - name: Build the Stack
+        run: docker-compose -f docker-compose.ci.yml build
+
+      - name: Run the Stack
+        run: docker-compose -f docker-compose.ci.yml up -d
+
+      - name: Make DB Migrations
+        run: docker-compose exec -T django python manage.py migrate
+
+      - name: Run Django Tests
+        run: docker-compose exec -T django pytest -vvv
+
+      - name: Push images
+        run: |
+          docker push ${{ env.WEB_IMAGE }}
+          docker push ${{ env.NGINX_IMAGE }}
+
+      - name: Tear down the Stack
+        run: docker-compose down
+
+  deploy:
+    name: Deploy to DigitalOcean
+    runs-on: ubuntu-latest
+    needs: pytest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+
+      - name: Add environment variables to .env
+        run: |
+          echo POSTGRES_ENGINE=django.db.backends.postgresql >> .env
+          echo DJANGO_SETTINGS_MODULE=config.settings.production >> .env
+          echo DATABASE=postgres >> .env
+          echo SECRET_KEY="${{ secrets.SECRET_KEY }}" >> .env
+          echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+          echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
+          echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+          echo WEB_IMAGE=${{ env.WEB_IMAGE }} >> .env
+          echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
+
+      - name: Create ssh key
+        run: |
+          mkdir -p ~/.ssh/
+          cd ~/.ssh/
+          chmod 777 ~/.ssh/
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > id_rsa.pub
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
+          chmod 664 ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Build and deploy images on DigitalOcean
+        run: |
+          scp  -o StrictHostKeyChecking=no -r ./.env cdupin@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }}:/home/cdupin/app
+          ssh -o StrictHostKeyChecking=no cdupin@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
+            cd /home/cdupin/app
+            source .env
+            docker login docker.pkg.github.com -u christophe-dupin  -p${{ secrets.TOKEN_GITHUB }}
+            docker pull ${{ env.WEB_IMAGE }}
+            docker pull ${{ env.NGINX_IMAGE }}
+
+            docker-compose -f /home/cdupin/app/docker-compose.prod.yml up -d
+          ENDSSH

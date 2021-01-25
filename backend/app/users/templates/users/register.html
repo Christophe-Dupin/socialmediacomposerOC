@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluide main_content">
+  <div class="row justify-content-center wall_register">
+    <div class="d-flex justify-content-center form">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Social Media Composer Register Page</legend>
+          {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit">Créer son compte</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="d-flex justify-content-center test">
+      <small class=" text-muted test2">
+        Vous avez déja un Compte? <a class="ml-2" href="{% url 'login' %}">Se connecter</a>
+      </small>
+    </div>
+  </div>
+</div>
+{% endblock content %}

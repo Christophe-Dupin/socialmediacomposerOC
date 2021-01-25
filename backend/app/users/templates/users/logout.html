@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container-fluide main_content">
+  <div class="row wall_logout">
+    <div class="d-flex p-2 flex_logout_message">
+      <div class="card text-center logout_message" style="width: 18rem;">
+        <div class="card-body body_message">
+          <h5 class="card-title">A trés vite</h5>
+          <p class="card-text">Merci de votre visite.</p>
+          <a href="{% url 'login' %}" class="btn btn-primary">Se connecter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
