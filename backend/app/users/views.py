@@ -6,6 +6,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
+from django.contrib.auth import views as auth_views
 from app.users.forms import UserUpdateForm
 
 # from django.contrib import messages
