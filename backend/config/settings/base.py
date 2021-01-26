@@ -5,8 +5,9 @@ from pathlib import Path
 import os
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-
+# test/
 APPS_DIR = ROOT_DIR / "app"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -88,14 +89,22 @@ AUTHENTICATION_BACKENDS = [
 WSGI_APPLICATION = "config.wsgi.application"
 # STATIC
 # ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
-STATICFILES_DIRS = (os.path.join(ROOT_DIR, "static"),)
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [str(APPS_DIR / "static")]
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = os.path.join(ROOT_DIR, "media/")
+MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 AUTH_USER_MODEL = "users.User"
@@ -124,3 +133,10 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "app-home"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "login"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
