@@ -12,3 +12,169 @@
   border:1.5px solid #f5f6fa;
 }
 
+.mainrow{
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 0%;
+  overflow: auto;
+}
+
+.splitRow{
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  flex: 1 1 0%;
+  overflow: auto;
+}
+.prepareSideBare{
+  flex-basis: 16rem;
+    width: 16rem;
+    min-width: 16rem;
+    position: sticky;
+    bottom: 0px;
+    top: 0px;
+    max-height: 100vh;
+}
+.SideBarWrapper{
+  display: flex;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+.SideBarWrapper_profile{
+  flex-basis: 16rem;
+  width: 16rem;
+  min-width: 16rem;
+  position: sticky;
+  bottom: 0px;
+  top: 0px;
+  max-height: 100vh;
+}
+.styleSideBar{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: rgb(252, 252, 252);
+  border-right: 0.063rem solid rgb(230, 235, 239);
+  height: 100%;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+}
+.styleSideBar2{
+  overflow-y: scroll;
+}
+.ListItemContainer{
+  margin: 0px 0px 8px;
+  border-radius: 4px;
+  background-color: transparent;
+}
+.Instagram{
+  list-style-type: none;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  height: 48px;
+  border-radius: 4px;
+  padding-left: 8px;
+  background-color: transparent;
+}
+.facebook{
+  list-style-type: none;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  height: 48px;
+  border-radius: 4px;
+  padding-left: 8px;
+  background-color: transparent;
+}
+.linkedin{
+  list-style-type: none;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  height: 48px;
+  border-radius: 4px;
+  padding-left: 8px;
+  background-color: transparent;
+}
+.ManageSocialAccountsStyle{
+  display: flex;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-flow: column nowrap;
+  position: sticky;
+  bottom: 15px;
+  background-color: rgb(252, 252, 252)
+}
+.BottomSection{
+  margin-top: auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.ButtonDividerStyle{
+  margin-bottom: 0.5rem;
+}
+.ixJmBS{
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  flex: 0 0 auto;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  min-width: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  position: relative;
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+  user-select: none;
+  background-color: rgb(255, 255, 255);
+  color: rgb(99, 99, 99);
+  border: 1px solid rgb(184, 184, 184);
+  width: 100%;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+.cDhjGo{
+  -webkit-box-align: center;
+    align-items: center;
+    background: none transparent;
+    border: 0px;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: -1px;
+    padding: 0px 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 40px;
+    width: 100%;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.manageChannel{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.btn a, .btn a:hover {
+  color: white;
+  text-decoration: none ;
+}

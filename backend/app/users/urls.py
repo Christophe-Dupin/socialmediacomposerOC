@@ -1,5 +1,5 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -45,4 +45,5 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("social-auth/", include("social_django.urls", namespace="social")),
 ]

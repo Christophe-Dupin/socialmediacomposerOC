@@ -53,18 +53,67 @@
     </div>
     {% endif %}
   </nav>
-  {% block content %}
+  <div class="row mainrow">
+    <div class="splitRow">
+      <div
+        style="display: flex; flex-grow: 1; flex-direction: column; width: 100vw; background: rgb(255, 255, 255); height: 100%; overflow: hidden;">
+        <div class="SideBarWrapper">
+          <div class="SideBarWrapper_profile">
+            <div class="ProfileSidebar__ProfileSidebar styleSideBar">
+              <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline: none;">
+                <div class="ProfileListItem ListItemContainer">
+                  <li class="Instagram">
+                    <button class="btn btn-danger  mb-2">
+                      <a href="#">Login with Instagram</a>
+                    </button>
+                  </li>
+                  <li class="facebook">
+                    <button class="btn btn-primary mb-2">
+                      <a href="#">Login with Facebook
+                      </a>
+                    </button>
+                  </li>
+                  <li class="linkedin">
+                    <button class="btn btn-info mb-2">
+                      <a href="#">Login with LinkedIn</a>
+                    </button>
+                  </li>
+                </div>
+              </div>
+              <div class="ProfileSidebar ManageSocialAccountsStyle">
+                <div class="ProfileSidebar BottomSection">
+                  <div class="ProfileSidebar ButtonDividerStyle">
+                    <hr
+                      style="border: none; height: 0.063rem; background: rgb(230, 235, 239); width: 100%; box-sizing: border-box; margin-top: 1rem; margin-bottom: 0.5rem;">
+                  </div>
+                  <div class="sc-fzpjYC ixJmBS" type="secondary">
+                    <div class="sc-fznxsB cUWXFh">
+                      <button aria-haspopup="false" class="sc-fznJRM cDhjGo" data-bcup-haslogintext="no">
+                        <div class="manageChannel">Manage Channel</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% block content %}
 
-  {% endblock content %}
-  <!-- Optional JavaScript; choose one of the two! -->
+          {% endblock content %}
+        </div>
+      </div>
+    </div>
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-    crossorigin="anonymous"></script>
 
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
-  <!--
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
     -->
