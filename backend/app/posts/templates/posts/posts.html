@@ -4,8 +4,12 @@
   <div class="col-sm-12 mb-3">
     <h4 class="text-center"> Welcome On post pages</h4>
     <div class="test">
-      tutu
+      {%for x in context%}
+      <div class=" p-2 mb-5 mx-lg-2 product-card bg-light border rounded col-lg-3 col-md-5 col-8 offset-2
+      offset-md-0">
+        <a class="d-block mb-2" href="#"> {{x.body}}</a>
+      </div>
+      {%endfor%}
     </div>
   </div>
-</div>
-{% endblock content %}
+  {% endblock content %}

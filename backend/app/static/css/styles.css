@@ -93,6 +93,52 @@
   padding-left: 8px;
   background-color: transparent;
 }
+.fblogged{
+  list-style-type: none;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: pointer;
+  height: 48px;
+  border-radius: 4px;
+  padding-left: 8px;
+  background-color: rgb(44, 75, 255);
+}
+.iAszhc{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+.eIjYSR{
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+.dPuKtK{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  background: rgb(24, 119, 242);
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  transform: translateX(8px) translateY(0px);
+}
+.logo{
+  display: inline-block;
+  fill: currentcolor;
+  width: 8px;
+  height: 8px;
+}
 .linkedin{
   list-style-type: none;
   display: flex;

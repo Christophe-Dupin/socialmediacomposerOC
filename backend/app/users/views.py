@@ -15,6 +15,10 @@ from app.users.models import User
 from .forms import SignUpForm
 
 
+def login(request):
+    return render(request, "users/login.html")
+
+
 def register(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)

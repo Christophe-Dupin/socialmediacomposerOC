@@ -26,8 +26,5 @@ RUN pip install -r requirements.txt
 # copy entrypoint.sh
 ADD ./entrypoint.sh /usr/src/app/entrypoint.sh
 
-# copy project
-ADD . /usr/src/app/
-
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

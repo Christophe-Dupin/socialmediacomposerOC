@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path("register/", views.register, name="register"),
     path(
-        "login/",
+        "",
         auth_views.LoginView.as_view(template_name="users/login.html"),
         name="login",
     ),
@@ -45,5 +45,4 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    path("social-auth/", include("social_django.urls", namespace="social")),
 ]

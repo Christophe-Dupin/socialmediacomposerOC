@@ -1,10 +1,196 @@
 <!-- templates/home.html -->
-{% extends "base.html" %}
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col-sm-12 mb-3">
-    <h4 class="text-center"> Welcome In social Media composer Home Page</h4>
+<div class="base-row">
+  <div class="sub-row">
+    <div class="sub-sub-row">
+      <div class="side-bar-wrapper">
+        <div class="side-bar-wrapper-profile-bar">
+          <div class="side-bar-wrapper-profile-bar-style">
+            <div class="side-bar-wrapper-profile-bar-style-social-account">
+              <div class="side-bar-wrapper-profile-bar-style-social-account-button">
+                <a href="#" class="connect-to-instagram">
+                  <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
+                    height="35">
+                  <span style="margin-left:8px" ;>
+                    <span
+                      style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                      Connect to Instagram
+
+                    </span>
+                  </span>
+                </a>
+                <a href="#" class="connect-to-twitter">
+                  <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
+                    height="35">
+                  <span style="margin-left:8px" ;>
+                    <span
+                      style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                      Connect to Twitter
+                    </span>
+                  </span>
+                </a>
+                <a href="{% url 'social:begin' 'facebook' %}"" class=" connect-to-facebook">
+                  <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
+                    height="35">
+                  <span style="margin-left:8px" ;>
+                    <span
+                      style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                      Connect to Facebook
+                    </span>
+                  </span>
+                </a>
+                <a href="{% url 'social:begin' 'linkedin-oauth2' %}" class="connect-to-linkedin">
+                  <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-Linkedin.png'%}" width="35"
+                    height="35">
+                  <span style="margin-left:8px" ;>
+                    <span
+                      style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                      Connect to Linkedin
+                    </span>
+                  </span>
+                </a>
+                <div class="bottom-style-social-media">
+                  <div class="bottom-style-social-media-divider">
+                    <hr
+                      style="border:none; height: 0.063rem; background:rgb(230, 235, 239); width:100%; box-sizing:border-box; margin-top:1rem; margin-bottom:0.5rem;">
+                  </div>
+                  <div class="bottom-style-social-media-secondary">
+                    <div class="bottom-style-social-media-secondary-boutton">
+                      <button type="button" class=test">
+                        <div class=bottom-style-social-media-secondary-boutton-clique-span>Manage Channels</div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="side-bar-wrapper-content-page">
+          <nav aria-disabled="false" class="content-page-nav-bar">
+            <ul class="nav-bar-ul">
+              <li class="nav-bar-item1">
+                <a href="#" class="queue">Queue</a>
+              </li>
+              <li class="nav-bar-item2">
+                <a href="#" class="queue">History</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="post-page">
+            <div class="main-post-page">
+              <div class="main-post-page-form">
+                <form method="POST" class="post-form">
+                  {% csrf_token %}
+                  <div class="main-post-page-form-body">
+                    {{ form.body|as_crispy_field }}
+                  </div>
+                  <div class="main-post-page-form-social-media">
+                    {{ form.socialmedia|as_crispy_field }}
+                  </div>
+                  <div class="main-post-page-form-social-media-boutton">
+                    <button type="submit" class="btn btn-primary boutton">Send</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock content %}
+
+
+<div class="row mainrow">
+  <div class="splitRow">
+    <div
+      style="display: flex; flex-grow: 1; flex-direction: column; width: 100vw; background: rgb(255, 255, 255); height: 100%; overflow: hidden;">
+      <div class="SideBarWrapper">
+        <div class="SideBarWrapper_profile">
+          <div class="ProfileSidebar__ProfileSidebar styleSideBar">
+            <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline: none;">
+              <div class="ProfileListItem ListItemContainer">
+                <li class="Instagram">
+                  <button class="btn btn-danger  mb-2">
+                    <a href="#">Login with Instagram</a>
+                  </button>
+                </li>
+                <li class="facebook">
+                  <button class="btn btn-primary mb-2">
+                    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook
+                    </a>
+                    <img src="{{ass.extra_data.picture.data.url}}" alt="" width="16" height="16"
+                      style="border-radius: 50%">
+                  </button>
+                </li>
+                <li class="linkedin">
+                  <button class="btn btn-info mb-2">
+                    <a href="{% url 'social:begin' 'linkedin-oauth2' %}">Login with LinkedIn</a>
+                  </button>
+                </li>
+              </div>
+            </div>
+            <div class="ProfileSidebar ManageSocialAccountsStyle">
+              <div class="ProfileSidebar BottomSection">
+                <div class="ProfileSidebar ButtonDividerStyle">
+                  <hr
+                    style="border: none; height: 0.063rem; background: rgb(230, 235, 239); width: 100%; box-sizing: border-box; margin-top: 1rem; margin-bottom: 0.5rem;">
+                </div>
+                <div class="sc-fzpjYC ixJmBS" type="secondary">
+                  <div class="sc-fznxsB cUWXFh">
+                    <button aria-haspopup="false" class="sc-fznJRM cDhjGo" data-bcup-haslogintext="no">
+                      <div class="manageChannel">Manage Channel</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <h2>What do you want to share</h2>
+              <form method="POST" class="post-form">
+                {% csrf_token %}
+                <div class="form-row w-100">
+                  <div class="form-group col-xs-12 .col-md-8 mb-0 ml-1 body">
+                    {{ form.body|as_crispy_field }}
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 mb-0">
+                    {{ form.socialmedia|as_crispy_field }}
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-6 testcontent">
+          <h2>What do you want to share</h2>
+          <form method="POST" class="post-form">
+            {% csrf_token %}
+            <div class="form-row w-100">
+              <div class="form-group col-xs-12 .col-md-8 mb-0 ml-1 body">
+                {{ form.body|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0 socialmedia">
+                {{ form.socialmedia|as_crispy_field }}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary sendboutton">Send</button>
+          </form>
+        </div>
