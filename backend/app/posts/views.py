@@ -9,6 +9,7 @@ def login(request):
     return render(request, "login.html")
 
 
+@login_required
 def home(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -31,7 +32,7 @@ def home(request):
 @login_required
 def all_posts_queue(request):
     context = Post.get_all_post_on_queue()
-    return render(request, "posts/posts.html", {"context": context})
+    return render(request, "posts/posts_queue.html", {"context": context})
 
 
 @login_required
