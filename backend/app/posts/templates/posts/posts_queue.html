@@ -1,0 +1,64 @@
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block content %}
+{%for x in context%}
+<div class="main-header-queue-page">
+  <div class="main-header-queue-page-content">
+    <div class="main-header-queue-page-content-primary">
+      <div class="main-header-queue-page-wrapper">
+        <h3 class="date">{{x.schedule_time.date}}</h3>
+      </div>
+      <div class="main-header-queue-page-content-secondary">
+        <div class="main-header-queue-page-content-tertiary">
+          <div class="main-header-queue-page-content-card">
+            <div class="main-header-queue-page-content-card-wrapper-content">
+              <div class="main-header-queue-page-content-card-wrapper-content-primary">
+                <span class="main-header-queue-page-content-card-wrapper-content-span">
+                  <span class="main-header-queue-page-content-card-wrapper-content-span-primary">
+                    {{x.body}}
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="main-header-queue-page-content-card-footer">
+              <div class="main-header-queue-page-content-card-footer-content">
+                <p class="main-header-queue-page-content-card-footer-content-blbla">blbabla</p>
+              </div>
+              <span class="main-header-queue-page-content-card-footer-content-span">
+                <div class="main-header-queue-page-content-card-footer-delete-boutton">
+                  <div class="main-header-queue-page-content-card-footer-delete-boutton-primary">
+                    <button aria-haspopup="false" class="delete-boutton">
+                      <div class="delete-bouton-content">Delete</div>
+                    </button>
+                  </div>
+                </div>
+                <span class="card-footer-divider"></span>
+                <div class="main-header-queue-page-content-card-footer-edit-boutton">
+                  <div class="main-header-queue-page-content-card-footer-edit-boutton-primary">
+                    <button aria-haspopup="false"
+                      class="main-header-queue-page-content-card-footer-edit-boutton-primary-boutton">
+                      <div class="boutton-edit">Edit</div>
+
+
+                    </button>
+                  </div>
+                </div>
+                <div class="main-header-queue-page-content-card-footer-share-now-boutton">
+                  <div class="main-header-queue-page-content-card-footer-share-now-boutton-primary">
+                    <button aria-haspopup="false" class="share-now-boutton">
+                      <div class="share-now-bouton-content">Share Now</div>
+                    </button>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}

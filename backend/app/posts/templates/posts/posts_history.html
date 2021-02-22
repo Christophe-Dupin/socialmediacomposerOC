@@ -1,10 +1,56 @@
-{% extends "base.html" %}
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Home {% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col-sm-12 mb-3">
-    <h4 class="text-center"> Welcome On post History pages</h4>
-    <div class="test">
-      tutu
+<div class="main-history">
+  <div class="main-history-pages">
+    <div>
+      <div style="margin-bottom: 1.5rem; width: 100%;">
+        <div class="main-history-pages-header">
+          <span class="main-history-pages-header-text">Your History of posts</span>
+        </div>
+        <hr
+          style="border: none; height: 0.063rem; background: rgb(230, 235, 239); width: 100%; box-sizing: border-box; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+      </div>
+      {%for x in context%}
+      <div class="header-date-post">
+        <div class="header-date-post-secondary">
+          <h3 class="date">{{x.schedule_time.date}}</h3>
+        </div>
+      </div>
+      <div class="body-message">
+        <div class="body-message-secondary">
+          <div class="body-message-tertiary">
+            <div class="post-action-boutton">
+              <div class="post-action-boutton-secondary">
+                <div class="post-action-boutton-tertiary">
+                  <button class="post-action-boutton-tertiary-bouton">
+                    <div class="post-action-boutton-tertiary-text">Share Again</div>
+                  </button>
+                </div>
+              </div>
+              <div class="body-message-card">
+                <div class="body-message-content">
+                  <div class="body-message-wrapper">
+                    <span class="body-message-wrapper-span">
+                      {{x.body}}
+                    </span>
+                  </div>
+                </div>
+                <div class="body-message-footer">
+                  <div class="body-message-footer-content">
+                    <p class="body-message-footer-content-blbab">
+                      blbla
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>
