@@ -82,3 +82,9 @@ class Post(models.Model):
 
     def get_all_post_on_queue_by_social_media(socialmedia):
         return Post.objects.filter(is_queue=True, socialmedia=socialmedia)
+
+    def delete_a_selected_post(pk):
+        return Post.objects.filter(id=pk).delete()
+
+    def edit_a_selected_post(pk):
+        return Post.objects.filter(id=pk)
