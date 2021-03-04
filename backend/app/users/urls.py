@@ -45,4 +45,5 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("manage_channels/", views.manage_channels, name="manage_channels"),
 ]

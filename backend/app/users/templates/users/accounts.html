@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="your-channel-master-container">
+  <div class="your-channel-main-container">
+    <header class="header">
+      <div class='your-channel-secondary-container'>
+        <div class="header-logo">
+          <img src="{% static 'assets/image/logo.png'%}" width="20" height="20" alt="">
+          <span class="header-logo-span">
+            SocialMediaComposer
+          </span>
+        </div>
+        <nav class="header-nav">
+          <a href="#" class="header-nav-item">My dashboard</a>
+          <a href="#" class="header-nav-item">My account</a>
+        </nav>
+      </div>
+    </header>
+    <div class="your-channel-secondary-container">
+      <nav class="channels-nav">
+        <a class="nav-item-channel" href="#">Channels</a>
+      </nav>
+      <div class="main">
+        <div class="main-title">
+          <div class="main-title-secondary">
+
+
+          </div>
+
+        </div>
+        <div>
+          <header>
+            <div class="main-view-header">
+              <h1 class="main-view-header-title">Your Channels</h1>
+            </div>
+          </header>
+          <div class="main-body">
+            <div class="list">
+              <div class="list-header">
+                <div class="list-header-col list-col-1 list-col-primary">
+                  Name
+                </div>
+              </div>
+              <div>
+                {%for x in context%}
+                {{x.provider}}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

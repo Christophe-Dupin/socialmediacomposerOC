@@ -11,6 +11,20 @@ class SocialMedia(models.Model):
         return self.socialmedia
 
 
+class PostManager(models.Manager):
+    def get_all_post_on_queue(self):
+        return self.filter(is_queue=True)
+
+    def get_all_post_history(self):
+        return self.filter(is_send=True)
+
+    def get_all_post_on_queue_by_social_media(self, socialmedia):
+        return self.filter(is_queue=True, socialmedia=socialmedia)
+
+    def delete_a_selected_post(self, pk):
+        return self.filter(id=pk).delete()
+
+
 class Post(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,6 +34,7 @@ class Post(models.Model):
     is_send = models.BooleanField(default=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     socialmedia = models.ManyToManyField(SocialMedia)
+    objects = PostManager()
 
     def post_on_Linkedin(self):
         api_url = "https://api.linkedin.com/v2/ugcPosts"
@@ -73,18 +88,3 @@ class Post(models.Model):
         if response.status_code == 201:
             print("Success")
         print(response.content)
-
-    def get_all_post_on_queue():
-        return Post.objects.filter(is_queue=True)
-
-    def get_all_post_history():
-        return Post.objects.filter(is_send=True)
-
-    def get_all_post_on_queue_by_social_media(socialmedia):
-        return Post.objects.filter(is_queue=True, socialmedia=socialmedia)
-
-    def delete_a_selected_post(pk):
-        return Post.objects.filter(id=pk).delete()
-
-    def edit_a_selected_post(pk):
-        return Post.objects.filter(id=pk)

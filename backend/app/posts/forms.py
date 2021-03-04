@@ -1,4 +1,5 @@
 from django import forms
+from config.settings.base import DATE_INPUT_FORMATS
 
 from .models import Post
 

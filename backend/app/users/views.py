@@ -88,3 +88,11 @@ def activate(request, uidb64):
         return redirect("login")
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         None
+
+
+@login_required
+def manage_channels(request):
+    user = request.user
+    context = user.social_auth.all()
+    print(context)
+    return render(request, "users/accounts.html", {"context": context})

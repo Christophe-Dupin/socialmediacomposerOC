@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
+from django.http import JsonResponse
 from .models import Post
-from .models import SocialMedia
 from .forms import PostForm
 
 
@@ -10,13 +11,15 @@ def login(request):
 
 
 @login_required
-def home(request):
+def add_post(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if not form.is_valid():
+            print("tutu")
             return render(request, "posts/home.html", {"form": form})
         post = Post(
             body=form.cleaned_data["body"],
+            schedule_time=form.cleaned_data["schedule_time"],
             author=request.user,
         )
         post.save()
@@ -24,18 +27,63 @@ def home(request):
             post.socialmedia.add(x.id)
             # post.post_on_Linkedin()
             # post.post_on_facebook()
-
     form = PostForm()
     return render(request, "posts/home.html", {"form": form})
 
 
 @login_required
 def all_posts_queue(request):
-    context = Post.get_all_post_on_queue()
-    return render(request, "posts/posts_queue.html", {"context": context})
+    post = Post.objects.get_all_post_on_queue()
+    print(post)
+    return render(
+        request,
+        "posts/posts_queue.html",
+        {"post": post},
+    )
+
+
+@login_required
+def all_posts_queue_linkedin(request):
+    context = Post.objects.filter(
+        socialmedia__socialmedia__startswith="linkedin"
+    )
+    return render(
+        request, "posts/posts_linkedin_queue.html", {"context": context}
+    )
+
+
+@login_required
+def all_posts_queue_facebook(request):
+    context = Post.objects.filter(
+        socialmedia__socialmedia__startswith="facebook"
+    )
+    return render(
+        request, "posts/posts_facebook_queue.html", {"context": context}
+    )
 
 
 @login_required
 def all_posts_send(request):
-    context = Post.get_all_post_history()
+    context = Post.objects.get_all_post_history()
     return render(request, "posts/posts_history.html", {"context": context})
+
+
+@login_required
+def delete_a_selected_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect("all_posts_queue")
+
+
+@login_required
+def delete_a_linkedin_selected_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect("all_posts_queue_linkedin")
+
+
+@login_required
+def delete_a_facebook_selected_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect("all_posts_queue_facebook")

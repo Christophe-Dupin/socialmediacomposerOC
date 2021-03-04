@@ -3,8 +3,8 @@
 {% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
-
-{%for x in post%}
+{% if context%}
+{%for x in context%}
 <div id="linkedin" class="main-header-queue-page">
   <div class="main-header-queue-page-content">
     <div class="main-header-queue-page-content-primary">
@@ -30,7 +30,7 @@
               <span class="main-header-queue-page-content-card-footer-content-span">
                 <div class="main-header-queue-page-content-card-footer-delete-boutton">
                   <div class="main-header-queue-page-content-card-footer-delete-boutton-primary">
-                    <a href="{% url 'delete_a_selected_post' x.id %}"><button aria-haspopup="false"
+                    <a href="{% url 'delete_a_linkedin_selected_post' x.id %}"><button aria-haspopup="false"
                         class="delete-boutton">
                         <div class="delete-bouton-content">Delete</div>
                       </button></a>
@@ -63,4 +63,7 @@
   </div>
 </div>
 {% endfor %}
+{% else %}
+<h1>Aucun Post on queue</h1>
+{% endif %}
 {% endblock content %}

@@ -95,7 +95,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "app/posts/static"),
+    os.path.join(BASE_DIR, "app/users/static"),
+]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -133,9 +137,10 @@ TEMPLATES = [
 ]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "add_post"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "login"
+DATE_INPUT_FORMATS = ["%d-%m-%Y"]
 # EMAIL SMTP------------------------
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND
@@ -159,13 +164,11 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ("link", "profile_url"),
 ]
 # LINKEDIN AUTH------------------------
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = "860f63rugg7y4r"
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = "jLbu44YYMh2TtQTK"
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = [
-    "r_liteprofile",
-    "r_emailaddress",
-    "w_member_social",
-]
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = "86pcf420vss99o"
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = "LD7xK1LcDoNnYYRR"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "add_post"
+SOCIAL_AUTH_LOGIN_URL = "/"
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ["r_liteprofile", "r_emailaddress"]
 SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = [
     "email-address",
     "formatted-name",
