@@ -30,9 +30,9 @@ services:
       - intern
       - extern
     labels:
-      - traefik.http.routers.nameyourrouter.rule=Host(`socialmediacomposer.com`)
-      - traefik.http.routers.nameyourrouter.tls=true
-      - traefik.http.routers.nameyourrouter.tls.certresolver=lets-encrypt
+      - traefik.http.routers.socialmediacomposer.rule=Host(`socialmediacomposer.com`)
+      - traefik.http.routers.socialmediacomposer.tls=true
+      - traefik.http.routers.socialmediacomposer.tls.certresolver=lets-encrypt
       - traefik.port=80
     depends_on:
       - django
