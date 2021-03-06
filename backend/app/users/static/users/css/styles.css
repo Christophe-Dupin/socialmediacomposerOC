@@ -19,27 +19,13 @@
 }
 /* A transferer dans l app post*/
 
-.main-history{
-  overflow-y: hidden;
-  margin-top:1rem;
-  padding-right: 1rem;
-  padding-left:1rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  height: 1px;
-}
+
 .main-history-pages{
   max-width: 864px;
   height:100%;
 
 }
-.main-history-pages-header-text{
-  font-family: Roboto, sans-serif;
-  font-size: 1rem;
-  font-weight:400;
-  color: rgb(0, 0, 0)
-}
+
 .test{
   border :1px dashed rgba(89, 98, 106, 0.3);
   height:53px;
@@ -295,4 +281,32 @@ display:flex;
   -webkit-box-align: center;
   align-items: center;
 
+}
+.account-img{
+  height: 120px;
+  width: 120px;
+  margin-right:25px
+}
+.form{
+  margin-top: 120px;
+  margin-bottom: auto;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin-left: 10%;
+
+}
+.body_message{
+  margin-top: 25%;
+}
+.profile{
+  margin-top:25px;
+}
+.username{
+  margin-bottom: 10px;
+}
+.image{
+  margin-top: 15px;
+}
+.bouton_register{
+  margin-top:15px;
 }

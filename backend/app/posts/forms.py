@@ -8,3 +8,4 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ("body", "socialmedia", "schedule_time")
+

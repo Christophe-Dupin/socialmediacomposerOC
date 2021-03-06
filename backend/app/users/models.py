@@ -9,6 +9,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    # a tester
     def save(self, *args, **kwargs):
         instance = super(User, self).save(**kwargs)
         pil_image = Image.open(self.image.path)

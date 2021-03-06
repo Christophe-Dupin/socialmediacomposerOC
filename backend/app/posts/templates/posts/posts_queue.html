@@ -3,55 +3,58 @@
 {% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
-
-{%for x in post%}
-<div id="linkedin" class="main-header-queue-page">
-  <div class="main-header-queue-page-content">
-    <div class="main-header-queue-page-content-primary">
-      <div class="main-header-queue-page-wrapper">
-        <h3 class="date">{{x.schedule_time.date}}</h3>
-      </div>
-      <div class="main-header-queue-page-content-secondary">
-        <div class="main-header-queue-page-content-tertiary">
-          <div class="main-header-queue-page-content-card">
-            <div class="main-header-queue-page-content-card-wrapper-content">
-              <div class="main-header-queue-page-content-card-wrapper-content-primary">
-                <span class="main-header-queue-page-content-card-wrapper-content-span">
-                  <span class="main-header-queue-page-content-card-wrapper-content-span-primary">
+<div class="main-history">
+  <div style="display: flex;"></div>
+  {%for x in post%}
+  <div class="header-history">
+    <div class="header-history-first">
+      <h3 class="date-post-history">{{x.schedule_time.date}}</h3>
+    </div>
+  </div>
+  <div class="post-content-on-queue">
+    <div class="post-content-on-queue-secondary">
+      <div class="post-content-on-queue-tertiary">
+        <div class="post-content-on-queue-container">
+          <div class="post-content-on-queue-container-cards">
+            <div class="post-content-on-queue-container-cards-content">
+              <div class="post-content-on-queue-container-cards-content-secondary">
+                <span class="post-content-on-queue-container-cards-content-secondary-span">
+                  <span
+                    style="font-family: Roboto, sans-serif; font-size: 0.875rem; font-weight: 400; color: rgb(89, 98, 106); white-space: pre-wrap;">
                     {{x.body}}
                   </span>
-                </span>
               </div>
             </div>
-            <div class="main-header-queue-page-content-card-footer">
-              <div class="main-header-queue-page-content-card-footer-content">
-                <p class="main-header-queue-page-content-card-footer-content-blbla">blbabla</p>
+            <div class="post-on-queue-content-cards-footer">
+              <div class="post-on-queue-content-cards-footer-secondary">
+                <span class="post-on-queue-content-cards-footer-secondary-span">
+                  <p class="post-on-queue-content-cards-footer-secondary-p">This post will be send
+                    {{x.schedule_time.date}} (GMT)</p>
+                </span>
               </div>
-              <span class="main-header-queue-page-content-card-footer-content-span">
-                <div class="main-header-queue-page-content-card-footer-delete-boutton">
-                  <div class="main-header-queue-page-content-card-footer-delete-boutton-primary">
-                    <a href="{% url 'delete_a_selected_post' x.id %}"><button aria-haspopup="false"
-                        class="delete-boutton">
-                        <div class="delete-bouton-content">Delete</div>
-                      </button></a>
-
+              <span class="post-on-queue-content-cards-footer-boutton">
+                <div class="post-on-queue-content-cards-footer-boutton-delete">
+                  <div class="post-on-queue-content-cards-footer-boutton-delete-secondary">
+                    <a href="{% url 'delete_a_selected_post' x.id %}">
+                      <bouton aria-haspopup="false" class="share-now-boutton">
+                        <div class="boutton-edit">Delete</div>
+                      </bouton>
+                    </a>
                   </div>
                 </div>
-                <span class="card-footer-divider"></span>
-                <div class="main-header-queue-page-content-card-footer-edit-boutton">
-                  <div class="main-header-queue-page-content-card-footer-edit-boutton-primary">
-                    <button aria-haspopup="false"
-                      class="main-header-queue-page-content-card-footer-edit-boutton-primary-boutton">
-                      <a href="#">
-                        <div class="boutton-edit">Edit</div>
-                    </button></a>
+                <span class="cards-separator"></span>
+                <div class="post-on-queue-content-cards-footer-boutton-delete ovveride">
+                  <div class="post-on-queue-content-cards-footer-boutton-delete-secondary">
+                    <bouton aria-haspopup="false" class="share-now-boutton">
+                      <div class="boutton-edit">Edit</div>
+                    </bouton>
                   </div>
                 </div>
-                <div class="main-header-queue-page-content-card-footer-share-now-boutton">
-                  <div class="main-header-queue-page-content-card-footer-share-now-boutton-primary">
-                    <button aria-haspopup="false" class="share-now-boutton">
-                      <div class="share-now-bouton-content">Share Now</div>
-                    </button>
+                <div class="post-on-queue-content-cards-footer-boutton-delete ovveride">
+                  <div class="post-on-queue-content-cards-footer-boutton-delete-secondary">
+                    <bouton aria-haspopup="false" class="share-now-boutton">
+                      <div class="boutton-edit">Share Now</div>
+                    </bouton>
                   </div>
                 </div>
               </span>
@@ -61,6 +64,6 @@
       </div>
     </div>
   </div>
+  {% endfor %}
 </div>
-{% endfor %}
 {% endblock content %}

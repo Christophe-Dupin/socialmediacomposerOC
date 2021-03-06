@@ -3,48 +3,58 @@
 {% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<div class="main-history">
-  <div class="main-history-pages">
+<div
+  style="overflow-y: auto; margin-top: 1rem; padding-right: 1rem; padding-left: 0.5rem; display: flex; flex-direction: column; flex-grow: 1; height: 1px;">
+  <div class="main-history">
     <div>
       <div style="margin-bottom: 1.5rem; width: 100%;">
-        <div class="main-history-pages-header">
-          <span class="main-history-pages-header-text">Your History of posts</span>
+        <div class="main-history-header">
+          <span style="font-family: Roboto, sans-serif; font-size: 1rem; font-weight: 400; color: rgb(0, 0, 0);">Your
+            sent posts for the last 30 days</span>
         </div>
         <hr
-          style="border: none; height: 0.063rem; background: rgb(230, 235, 239); width: 100%; box-sizing: border-box; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+          style="border: none; height: 0.063rem; background: rgb(90, 90, 90); width: 100%; box-sizing: border-box; margin-top: 0.5rem; margin-bottom: 0.5rem;">
       </div>
+      <div style="display: flex;"></div>
       {%for x in context%}
-      <div class="header-date-post">
-        <div class="header-date-post-secondary">
-          <h3 class="date">{{x.schedule_time.date}}</h3>
+      <div class="header-history">
+        <div class="header-history-first">
+          <h3 class="date-post-history">{{x.schedule_time.date}}</h3>
         </div>
       </div>
-      <div class="body-message">
-        <div class="body-message-secondary">
-          <div class="body-message-tertiary">
-            <div class="post-action-boutton">
-              <div class="post-action-boutton-secondary">
-                <div class="post-action-boutton-tertiary">
-                  <button class="post-action-boutton-tertiary-bouton">
-                    <div class="post-action-boutton-tertiary-text">Share Again</div>
-                  </button>
-                </div>
-              </div>
-              <div class="body-message-card">
-                <div class="body-message-content">
-                  <div class="body-message-wrapper">
-                    <span class="body-message-wrapper-span">
+      <div class="post-history-content">
+        <div class="post-history-content-first">
+          <div class="post-history-content-secondary">
+            <div class="post-history-content-cards">
+              <div class="post-history-content-cards-content">
+                <div class="post-history-content-cards-content-wrapper">
+                  <span class="post-history-content-cards-content-body">
+                    <span
+                      style="font-family: Roboto, sans-serif; font-size: 0.875rem; font-weight: 400; color: rgb(89, 98, 106); white-space: pre-wrap;">
                       {{x.body}}
                     </span>
-                  </div>
+                  </span>
                 </div>
-                <div class="body-message-footer">
-                  <div class="body-message-footer-content">
-                    <p class="body-message-footer-content-blbab">
-                      blbla
-                    </p>
-                  </div>
+              </div>
+              <div class="post-history-content-cards-footer">
+                <div class="post-history-content-cards-footer-content">
+                  <p class="post-history-content-cards-footer-content-date">
+                    This post was send {{x.schedule_time.date}} (GMT)
+                  </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="action-boutton-reshare">
+            <div class="action-boutton-reshare-wrapper">
+              <div class="action-boutton-reshare-wrapper-secondary">
+                <button aria-haspopup="false" class="action-boutton-reshare-wrapper-secondary-boutton">
+                  <div class="action-boutton-reshare-wrapper-secondary-boutton-text">
+                    Share Again
+                  </div>
+                </button>
               </div>
             </div>
           </div>

@@ -28,7 +28,10 @@ def register(request):
                 form.cleaned_data["email"],
                 form.cleaned_data["password"],
             )
+            user.first_name = form.cleaned_data["first_name"]
+            user.first_name = form.cleaned_data["last_name"]
             user.is_active = False
+
             user.save()
             current_site = get_current_site(request)
             mail_subject = "Activer votre compte."
@@ -68,7 +71,9 @@ def profile(request):
         if user_form.is_valid():
             user_form.save()
             messages.success(request, f'{"Your account has been updated!"}')
-            return redirect("/")
+            return redirect("all_posts_queue")
+        else:
+            print("tutu")
     else:
         user_form = UserUpdateForm(instance=request.user)
     context = {"user_form": user_form}

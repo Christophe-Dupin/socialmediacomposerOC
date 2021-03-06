@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.http import JsonResponse
 from .models import Post
+from app.users.models import User
 from .forms import PostForm
 
 
@@ -45,7 +46,7 @@ def all_posts_queue(request):
 @login_required
 def all_posts_queue_linkedin(request):
     context = Post.objects.filter(
-        socialmedia__socialmedia__startswith="linkedin"
+        socialmedia__socialmedia__startswith="linkedin", is_queue=True
     )
     return render(
         request, "posts/posts_linkedin_queue.html", {"context": context}
@@ -55,7 +56,7 @@ def all_posts_queue_linkedin(request):
 @login_required
 def all_posts_queue_facebook(request):
     context = Post.objects.filter(
-        socialmedia__socialmedia__startswith="facebook"
+        socialmedia__socialmedia__startswith="facebook", is_queue=True
     )
     return render(
         request, "posts/posts_facebook_queue.html", {"context": context}
@@ -87,3 +88,21 @@ def delete_a_facebook_selected_post(request, id):
     post = get_object_or_404(Post, id=id)
     post.delete()
     return redirect("all_posts_queue_facebook")
+
+
+@login_required
+def share_now_a_linkedin_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.post_on_Linkedin()
+    post.is_queue = False
+    post.is_send = True
+    post.save()
+    return redirect("all_posts_queue_linkedin")
+
+
+@login_required
+def manage_my_channels(request):
+    user = request.user
+    social = user.social_auth.get()
+    context = social.provider
+    return render(request, "posts/manage_channels.html", {"context": context})

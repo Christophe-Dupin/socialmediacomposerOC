@@ -36,4 +36,14 @@ urlpatterns = [
         views.delete_a_facebook_selected_post,
         name="delete_a_facebook_selected_post",
     ),
+    path(
+        "share_now_a_linkedin_post/<int:id>",
+        views.share_now_a_linkedin_post,
+        name="share_now_a_linkedin_post",
+    ),
+    path(
+        "manage_my_channels/",
+        views.manage_my_channels,
+        name="manage_my_channels",
+    ),
 ]

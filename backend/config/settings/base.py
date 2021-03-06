@@ -168,7 +168,11 @@ SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = "86pcf420vss99o"
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = "LD7xK1LcDoNnYYRR"
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "add_post"
 SOCIAL_AUTH_LOGIN_URL = "/"
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ["r_liteprofile", "r_emailaddress"]
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = [
+    "r_liteprofile",
+    "r_emailaddress",
+    "w_member_social",
+]
 SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = [
     "email-address",
     "formatted-name",
