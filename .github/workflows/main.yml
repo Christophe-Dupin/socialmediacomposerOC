@@ -18,7 +18,7 @@ jobs:
       - name: Add environment variables to .env
         run: |
           echo DJANGO_SETTINGS_MODULE=config.settings.ci >> .env
-          echo DATABASE=postgres >>.env
+          echo DATABASE=postgres >> .env
       - name: Set environment variables
         run: |
           echo "WEB_IMAGE=${WEB_IMAGE}" >> $GITHUB_ENV
