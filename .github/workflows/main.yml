@@ -66,6 +66,13 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
           echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
           echo POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} >> .env
+          echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} >> .env
+          echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
+          echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
+          echo SOCIAL_AUTH_FACEBOOK_SECRET=${{ secrets.SOCIAL_AUTH_FACEBOOK_SECRET }} >> .env
+          echo SOCIAL_AUTH_FACEBOOK_KEY=${{ secrets.SOCIAL_AUTH_FACEBOOK_KEY }} >> .env
+          echo SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY=${{ secrets.SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY }} >> .env
+          echo SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET=${{ secrets.SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET }} >> .env
           echo WEB_IMAGE=${{ env.WEB_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
       - name: Create ssh key
