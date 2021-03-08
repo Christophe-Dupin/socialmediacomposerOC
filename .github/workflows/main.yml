@@ -79,7 +79,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
       - name: Build and deploy images on DigitalOcean
         run: |
-          scp  -o StrictHostKeyChecking=no -r ./.env ./.env.prod.db ./docker-compose.prod.yml cdupin@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }}:/home/cdupin/socialmediacomposer
+          scp  -o StrictHostKeyChecking=no -r ./.env ./docker-compose.prod.yml cdupin@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }}:/home/cdupin/socialmediacomposer
           ssh -o StrictHostKeyChecking=no cdupin@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
             cd /home/cdupin/socialmediacomposer
             source .env
