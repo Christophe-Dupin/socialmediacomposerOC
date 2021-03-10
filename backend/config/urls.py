@@ -23,7 +23,7 @@ urlpatterns = [
     path("post/", include("app.posts.urls")),
     path("user/", include("app.users.urls")),
     path("", include("app.users.urls")),
-    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("accounts/", include("allauth.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(

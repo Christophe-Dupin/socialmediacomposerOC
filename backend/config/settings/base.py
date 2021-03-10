@@ -17,7 +17,7 @@ TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = "en-us"
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
-SITE_ID = 1
+SITE_ID = 2
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
@@ -42,8 +42,15 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 THIRD_PARTY_APPS = [
-    "social_django",
+    "django.contrib.sites",
     "crispy_forms",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.linkedin_oauth2",
+    "allauth.socialaccount.providers.twitter",
+    "allauth.socialaccount.providers.instagram",
 ]
 LOCAL_APPS = ["app.posts", "app.users"]
 
@@ -82,9 +89,7 @@ MIDDLEWARE = [
     "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 AUTHENTICATION_BACKENDS = [
-    "social_core.backends.linkedin.LinkedinOAuth2",
-    "social_core.backends.instagram.InstagramOAuth2",
-    "social_core.backends.facebook.FacebookOAuth2",
+    "allauth.account.auth_backends.AuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 WSGI_APPLICATION = "config.wsgi.application"
@@ -129,8 +134,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -150,25 +153,54 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+SOCIALACCOUNT_PROVIDERS = {
+    "facebook": {
+        "METHOD": "oauth2",
+        "SCOPE": ["email", "public_profile", "user_friends"],
+        "AUTH_PARAMS": {"auth_type": "reauthenticate"},
+        "FIELDS": [
+            "id",
+            "email",
+            "name",
+            "first_name",
+            "last_name",
+            "verified",
+            "locale",
+            "timezone",
+            "link",
+            "gender",
+            "updated_time",
+        ],
+        "EXCHANGE_TOKEN": True,
+        "LOCALE_FUNC": lambda request: "kr_KR",
+        "VERIFIED_EMAIL": False,
+        "VERSION": "v2.4",
+    },
+    "linkedin": {
+        "SCOPE": [
+            "r_liteprofile",
+            "r_emailaddress",
+            "w_member_social",
+        ],
+        "PROFILE_FIELDS": [
+            "id",
+            "first-name",
+            "last-name",
+            "email-address",
+            "picture-url",
+            "public-profile-url",
+        ],
+    },
+}
 # FACEBOOK AUTH------------------------
 SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY")
 SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET")
-SOCIAL_AUTH_FACEBOOK_SCOPE = ["email", "user_link"]
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    "fields": "id, name, email, picture.type(large), link"
-}
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
-    ("name", "name"),
-    ("email", "email"),
-    ("picture", "picture"),
-    ("link", "profile_url"),
-]
 # LINKEDIN AUTH------------------------
 SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = os.getenv("SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY")
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = os.getenv(
     "SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET"
 )
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "add_post"
+LOGIN_REDIRECT_URL = "add_post"
 SOCIAL_AUTH_LOGIN_URL = "/"
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = [
     "r_liteprofile",

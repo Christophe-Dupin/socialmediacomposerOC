@@ -37,7 +37,7 @@ RUN apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-de
 RUN pip install --upgrade pip
 
 # Install requirements.txt
-ADD ./requirements.txt .
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
 # copy entrypoint.sh
