@@ -163,6 +163,8 @@
                         </span>
                       </a>
                       {% endif %}
+                      {% endif %}
+                      {% endfor %}
                       {% providers_media_js %}
                       {% load socialaccount %}
                       <a href='{% provider_login_url "facebook" process="connect" %}' class=" connect-to-facebook">
