@@ -26,6 +26,27 @@
 </head>
 
 <body>
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '258642982408211',
+        cookie: true,
+        xfbml: true,
+        version: 'v10.0'
+      });
+
+      FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
   <div class="base-container">
     <div class="sub_container">
       <nav aria-label="mainmenu" class="main-navigation">
@@ -89,6 +110,9 @@
                 <div class="side-bar-wrapper-profile-bar-style">
                   <div class="side-bar-wrapper-profile-bar-style-social-account">
                     <div class="side-bar-wrapper-profile-bar-style-social-account-button">
+                      {% if get_providers as socialaccount_providers %}
+                      {% for ass in socialaccount_providers %}
+
                       <a href="#" class="connect-to-instagram">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
                           height="35">
@@ -99,7 +123,36 @@
                           </span>
                         </span>
                       </a>
-                      {% load socialaccount %}
+                      {% if ass.provider == 'linkedin' %}
+                      <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline:none;">
+                        <div class="connected-to-linkedin">
+                          <li class="item-linkedin-li">
+                            <div class="item-linkedin-primary">
+                              <div class="item-linkedin-secondary">
+                                <a href="{% url 'all_posts_queue_linkedin' %}">
+                                  <img border="0" alt="W3Schools" src="{{ user.image.url }}" width="35" height="35"
+                                    class="profile-picture">
+                                  <div class="item-linkedin-tertiary">
+                                    <svg color="white" viewBox="0 0 16 16" class="item-linkedin-svg">
+                                      <g>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M12.93 12.93h-2.075V9.68c0-.774-.015-1.77-1.08-1.77-1.08 0-1.246.843-1.246 1.715v3.305H6.454V6.249h1.992v.912h.028c.277-.525.954-1.079 1.965-1.079 2.102 0 2.49 1.384 2.49 3.183v3.665zM4.114 5.335a1.204 1.204 0 1 1 0-2.408 1.204 1.204 0 0 1 0 2.408zM3.076 12.93h2.076V6.249H3.076v6.68zM13.964 1H2.034C1.463 1 1 1.452 1 2.01v11.98c0 .557.463 1.01 1.033 1.01h11.93c.572 0 1.037-.453 1.037-1.01V2.01C15 1.451 14.535 1 13.964 1z">
+                                        </path>
+                                      </g>
+                                    </svg>
+                                  </div>
+                              </div>
+                              <div class="item-linkedin-username">
+                                <span
+                                  style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                                  {{ user.first_name }} {{ user.last_name }}
+                                </span></a>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </div>
+                      {% else %}
                       <a href="{% provider_login_url 'linkedin_oauth2' %}" class="connect-to-linkedin">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-linkedin.png'%}" width="35"
                           height="35">
@@ -110,6 +163,9 @@
                           </span>
                         </span>
                       </a>
+                      {% endif %}
+                      {% endfor %}
+                      {% providers_media_js %}
                       {% load socialaccount %}
                       <a href='{% provider_login_url "facebook" process="connect" %}' class=" connect-to-facebook">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"

@@ -156,7 +156,7 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 SOCIALACCOUNT_PROVIDERS = {
     "facebook": {
         "METHOD": "oauth2",
-        "SCOPE": ["email", "public_profile", "publish_actions"],
+        "SCOPE": ["email", "public_profile"],
         "AUTH_PARAMS": {"auth_type": "reauthenticate"},
         "FIELDS": [
             "id",
@@ -174,7 +174,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "EXCHANGE_TOKEN": True,
         "LOCALE_FUNC": lambda request: "kr_KR",
         "VERIFIED_EMAIL": False,
-        "VERSION": "v2.4",
+        "VERSION": "v10.0",
     },
     "linkedin": {
         "SCOPE": [
@@ -192,9 +192,6 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     },
 }
-# FACEBOOK AUTH------------------------
-SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY")
-SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET")
 # LINKEDIN AUTH------------------------
 SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = os.getenv("SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY")
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = os.getenv(
@@ -202,21 +199,3 @@ SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = os.getenv(
 )
 LOGIN_REDIRECT_URL = "add_post"
 SOCIAL_AUTH_LOGIN_URL = "/"
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = [
-    "r_liteprofile",
-    "r_emailaddress",
-    "w_member_social",
-]
-SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = [
-    "email-address",
-    "formatted-name",
-    "public-profile-url",
-    "picture-url",
-]
-SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
-    ("id", "id"),
-    ("formattedName", "name"),
-    ("emailAddress", "email_address"),
-    ("pictureUrl", "picture_url"),
-    ("publicProfileUrl", "profile_url"),
-]

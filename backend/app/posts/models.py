@@ -1,5 +1,7 @@
 from django.db import models
 from app.users.models import User
+from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.models import SocialToken
 import os
 import requests
 
@@ -39,14 +41,17 @@ class Post(models.Model):
     def post_on_Linkedin(self):
         api_url = "https://api.linkedin.com/v2/ugcPosts"
         user = User.objects.get(username=self.author)
-        social = user.social_auth.get(provider="linkedin-oauth2")
-        access_token = social.extra_data["access_token"]
+        access_token = SocialToken.objects.filter(
+            account__user=user, account__provider="linkedin"
+        )
         headers = {
             "X-Restli-Protocol-Version": "2.0.0",
             "Content-Type": "application/json",
             "Authorization": f"Bearer {access_token}",
         }
-        urn = social.extra_data["id"]
+        urn = SocialAccount.objects.filter(
+            account__provider="linkedin"
+        ).extra_data["id"]
         author = f"urn:li:person:{urn}"
         post_data = {
             "author": author,
