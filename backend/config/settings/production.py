@@ -9,7 +9,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["socialmediacomposer.com", "www.socialmediacomposer.com"]
 CORS_ORIGIN_ALLOW_ALL = True
-
+SITE_ID = 2
 DATABASES = {
     "default": {
         "ENGINE": os.getenv("POSTGRES_ENGINE"),

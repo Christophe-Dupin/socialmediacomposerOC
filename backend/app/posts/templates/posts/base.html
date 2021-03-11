@@ -1,5 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 <!doctype html>
 <html lang="en">
 
@@ -110,9 +111,8 @@
                 <div class="side-bar-wrapper-profile-bar-style">
                   <div class="side-bar-wrapper-profile-bar-style-social-account">
                     <div class="side-bar-wrapper-profile-bar-style-social-account-button">
-                      {% if get_providers as socialaccount_providers %}
-                      {% for ass in socialaccount_providers %}
-
+                      {% get_providers as socialaccount_providers %}
+                      {% if socialaccount_providers %}
                       <a href="#" class="connect-to-instagram">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
                           height="35">
@@ -164,7 +164,7 @@
                         </span>
                       </a>
                       {% endif %}
-                      {% endfor %}
+                      {% endif %}
                       {% providers_media_js %}
                       {% load socialaccount %}
                       <a href='{% provider_login_url "facebook" process="connect" %}' class=" connect-to-facebook">
