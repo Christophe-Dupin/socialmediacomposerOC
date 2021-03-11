@@ -29,6 +29,9 @@ def add_post(request):
             # post.post_on_facebook()
     form = PostForm()
     social_account = SocialAccount.objects.filter(user=request.user)
+    print(social_account)
+    for x in social_account:
+        print(x)
     return render(
         request,
         "posts/home.html",
