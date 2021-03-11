@@ -152,11 +152,11 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 SOCIALACCOUNT_PROVIDERS = {
     "facebook": {
         "METHOD": "oauth2",
-        "SCOPE": ["email", "public_profile"],
+        "SCOPE": ["email", "public_profile", "publish_actions"],
         "AUTH_PARAMS": {"auth_type": "reauthenticate"},
         "FIELDS": [
             "id",
