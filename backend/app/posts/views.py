@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.core import serializers
-from django.http import JsonResponse
+from allauth.socialaccount.models import SocialAccount
 from .models import Post
 from app.users.models import User
 from .forms import PostForm
@@ -29,7 +28,12 @@ def add_post(request):
             # post.post_on_Linkedin()
             # post.post_on_facebook()
     form = PostForm()
-    return render(request, "posts/home.html", {"form": form})
+    social_account = SocialAccount.objects.filter(user=request.user)
+    return render(
+        request,
+        "posts/home.html",
+        {"form": form, "social_Account": social_account},
+    )
 
 
 @login_required
