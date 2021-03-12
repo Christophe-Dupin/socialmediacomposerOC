@@ -176,7 +176,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "VERIFIED_EMAIL": False,
         "VERSION": "v10.0",
     },
-    "linkedin": {
+    "linkedin_oauth2": {
         "SCOPE": [
             "r_liteprofile",
             "r_emailaddress",
