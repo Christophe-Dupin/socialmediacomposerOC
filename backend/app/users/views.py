@@ -2,14 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
 
 from app.users.forms import UserUpdateForm
-
-# from django.contrib import messages
 from app.users.models import User
 
 from .forms import SignUpForm
@@ -48,11 +46,15 @@ def register(request):
             email.send()
             messages.success(
                 request,
-                f'{"Votre compte a bien été crée, merci de confimer!"}',
+                f'{"Votre compte a bien été crée, un mail vous a été envoyé pour confirmer votre inscription!"}',
             )
             return redirect("profile")
         else:
-            return render(request, "users/register.html", {"form": form})
+            return render(
+                request,
+                "users/register.html",
+                {"form": form, "messages": messages},
+            )
     else:
         form = SignUpForm()
 

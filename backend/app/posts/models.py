@@ -38,11 +38,11 @@ class Post(models.Model):
     socialmedia = models.ManyToManyField(SocialMedia)
     objects = PostManager()
 
-    def post_on_Linkedin(self):
+    def post_on_Linkedin(self, request):
         api_url = "https://api.linkedin.com/v2/ugcPosts"
         user = User.objects.get(username=self.author)
-        access_token = SocialToken.objects.filter(
-            account__user=user, account__provider="linkedin"
+        access_token = SocialToken.objects.get(
+            account__user=user.id, account__provider="linkedin_oauth2"
         )
         headers = {
             "X-Restli-Protocol-Version": "2.0.0",
@@ -50,9 +50,9 @@ class Post(models.Model):
             "Authorization": f"Bearer {access_token}",
         }
         urn = SocialAccount.objects.filter(
-            account__provider="linkedin"
-        ).extra_data["id"]
-        author = f"urn:li:person:{urn}"
+            user=request.user, provider="linkedin_oauth2"
+        )
+        author = f"urn:li:person:{urn[0].uid}"
         post_data = {
             "author": author,
             "lifecycleState": "PUBLISHED",

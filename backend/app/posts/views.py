@@ -97,7 +97,7 @@ def delete_a_facebook_selected_post(request, id):
 @login_required
 def share_now_a_linkedin_post(request, id):
     post = get_object_or_404(Post, id=id)
-    post.post_on_Linkedin()
+    post.post_on_Linkedin(request)
     post.is_queue = False
     post.is_send = True
     post.save()

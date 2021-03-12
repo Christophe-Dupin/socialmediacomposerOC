@@ -102,7 +102,6 @@
           </ul>
         </nav>
       </nav>
-
       <div class="base-row">
         <div class="sub-row">
           <div class="sub-sub-row">
@@ -165,7 +164,6 @@
                       </a>
                       {% endif %}
                       {% providers_media_js %}
-                      {% load socialaccount %}
                       <a href='{% provider_login_url "facebook" process="connect" %}' class=" connect-to-facebook">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
                           height="35">
@@ -176,7 +174,6 @@
                           </span>
                         </span>
                       </a>
-
                       <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
                           height="35">
