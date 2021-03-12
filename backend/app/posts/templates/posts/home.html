@@ -2,9 +2,10 @@
 {% extends "posts/base.html" %}
 {% load crispy_forms_tags %}
 {% load bootstrap4 %}
+{% bootstrap_form form %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-{{form.media}}
+{% bootstrap_formset date %}
 {% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
@@ -20,20 +21,20 @@
         <div class="main-post-page-form-social-media socia-media">
           {{ form.socialmedia|as_crispy_field }}
         </div>
-
+        <div class="main-post-page-form-social-media schedule-time">
+          {{ form.schedule_time|as_crispy_field }}
+        </div>
         <div class="main-post-page-form-social-media-boutton">
           <button type="submit" class="btn btn-primary boutton">Send</button>
         </div>
     </div>
   </div>
 </div>
-{{ date.date }}
+
 
 <script>
-  $(function () {
-    $("#id_date").datepicker({
-      format: 'd/m/Y H:i',
-    });
+  $("#id_schedule_time").datetimepicker({
+    format: 'd/m/Y H:i',
   });
 </script>
 {% endblock content %}

@@ -148,7 +148,7 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "add_post"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "login"
-DATE_INPUT_FORMATS = ["%d-%m-%Y"]
+DATE_INPUT_FORMATS = ["%d/%m/%Y %H:%M"]
 # EMAIL SMTP------------------------
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND

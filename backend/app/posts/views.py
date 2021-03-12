@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialAccount
 from .models import Post
 from app.users.models import User
-from .forms import PostForm, DateForm
+from .forms import PostForm
 
 
 def login(request):
@@ -12,9 +12,9 @@ def login(request):
 
 @login_required
 def add_post(request):
-    date = DateForm()
     if request.method == "POST":
         form = PostForm(request.POST)
+        print(form)
         if not form.is_valid():
             print("tutu")
             return render(request, "posts/home.html", {"form": form})
@@ -33,7 +33,10 @@ def add_post(request):
     return render(
         request,
         "posts/home.html",
-        {"form": form, "social_account": social_account, "date": date},
+        {
+            "form": form,
+            "social_account": social_account,
+        },
     )
 
 
