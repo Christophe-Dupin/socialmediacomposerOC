@@ -855,3 +855,16 @@ cursor:inherit;
 .ovveride{
   margin-right: 8px;
 }
+
+.dropdown{
+  position:relative;
+
+}
+.login_logout_menu{
+  border-color:rgb(255, 255, 255);
+  background-color: rgb(255,255,255);
+}
+
+btn-primary:hover{
+  background-color:rgb(255, 255, 255)
+}

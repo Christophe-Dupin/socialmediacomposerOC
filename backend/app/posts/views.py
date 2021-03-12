@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialAccount
 from .models import Post
 from app.users.models import User
-from .forms import PostForm
+from .forms import PostForm, DateForm
 
 
 def login(request):
@@ -12,6 +12,7 @@ def login(request):
 
 @login_required
 def add_post(request):
+    date = DateForm()
     if request.method == "POST":
         form = PostForm(request.POST)
         if not form.is_valid():
@@ -32,18 +33,18 @@ def add_post(request):
     return render(
         request,
         "posts/home.html",
-        {"form": form, "social_account": social_account},
+        {"form": form, "social_account": social_account, "date": date},
     )
 
 
 @login_required
 def all_posts_queue(request):
     post = Post.objects.get_all_post_on_queue()
-    print(post)
+    social_account = SocialAccount.objects.filter(user=request.user)
     return render(
         request,
         "posts/posts_queue.html",
-        {"post": post},
+        {"post": post, "social_account": social_account},
     )
 
 
@@ -52,8 +53,11 @@ def all_posts_queue_linkedin(request):
     context = Post.objects.filter(
         socialmedia__socialmedia__startswith="linkedin", is_queue=True
     )
+    social_account = SocialAccount.objects.filter(user=request.user)
     return render(
-        request, "posts/posts_linkedin_queue.html", {"context": context}
+        request,
+        "posts/posts_linkedin_queue.html",
+        {"context": context, "social_account": social_account},
     )
 
 
@@ -62,15 +66,23 @@ def all_posts_queue_facebook(request):
     context = Post.objects.filter(
         socialmedia__socialmedia__startswith="facebook", is_queue=True
     )
+    social_account = SocialAccount.objects.filter(user=request.user)
     return render(
-        request, "posts/posts_facebook_queue.html", {"context": context}
+        request,
+        "posts/posts_facebook_queue.html",
+        {"context": context, "social_account": social_account},
     )
 
 
 @login_required
 def all_posts_send(request):
     context = Post.objects.get_all_post_history()
-    return render(request, "posts/posts_history.html", {"context": context})
+    social_account = SocialAccount.objects.filter(user=request.user)
+    return render(
+        request,
+        "posts/posts_history.html",
+        {"context": context, "social_account": social_account},
+    )
 
 
 @login_required

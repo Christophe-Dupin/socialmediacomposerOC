@@ -1,27 +1,39 @@
 <!-- templates/home.html -->
 {% extends "posts/base.html" %}
 {% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{form.media}}
 {% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
+
 <div class="post-page">
   <div class="main-post-page">
     <div class="main-post-page-form">
       <form method="POST" class="post-form">
         {% csrf_token %}
-        <div class="main-post-page-form-body">
+        <div class="main-post-page-form-body body">
           {{ form.body|as_crispy_field }}
         </div>
-        <div class="main-post-page-form-social-media">
+        <div class="main-post-page-form-social-media socia-media">
           {{ form.socialmedia|as_crispy_field }}
         </div>
-        <div class="main-post-page-form-social-media">
-          {{ form.schedule_time|as_crispy_field }}
-        </div>
+
         <div class="main-post-page-form-social-media-boutton">
           <button type="submit" class="btn btn-primary boutton">Send</button>
         </div>
     </div>
   </div>
 </div>
+{{ date.date }}
+
+<script>
+  $(function () {
+    $("#id_date").datepicker({
+      format: 'd/m/Y H:i',
+    });
+  });
+</script>
 {% endblock content %}

@@ -8,6 +8,21 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+  <!-- XDSoft DateTimePicker -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+    integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+    integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
   <link rel="icon" type="image/x-icon" href="{% static 'assets/image/logo.png'%}" />
   <!-- Font Awesome icons (free version)-->
   <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
@@ -93,10 +108,14 @@
                   <img class="rounded-circle nav-account-img" src="{{ user.image.url }}">
                 </div>
               </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="{% url 'profile' %}"><span class="fa fa-life-ring"></span>Paramètres</a>
-                <a class="dropdown-item" href="{% url 'logout' %}"><span class="fa fa-wrench"></span>Se
-                  déconnecter</a>
+              <div class="dropdown">
+                <bouton class="btn btn-light dropdown-toggle login_logout_menu" type="button" data-toggle="dropdown"
+                  data-bcup-haslogintext="no" aria-expanded="false"></bouton>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'profile' %}"><span class="fa fa-life-ring"></span>Profile</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><span class="fa fa-wrench"></span>Se
+                    déconnecter</a>
+                </div>
               </div>
             </li>
           </ul>
@@ -226,7 +245,9 @@
                           </span>
                         </span>
                       </a>
+
                       {% endif %}
+
                       <div class="bottom-style-social-media">
                         <div class="bottom-style-social-media-divider">
                           <hr

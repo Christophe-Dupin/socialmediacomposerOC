@@ -51,6 +51,8 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.linkedin_oauth2",
     "allauth.socialaccount.providers.twitter",
     "allauth.socialaccount.providers.instagram",
+    "bootstrap_datepicker_plus",
+    "bootstrap4",
 ]
 LOCAL_APPS = ["app.posts", "app.users"]
 
@@ -139,6 +141,9 @@ TEMPLATES = [
     },
 ]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+BOOTSTRAP4 = {
+    "include_jquery": True,
+}
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "add_post"
 LOGOUT_URL = "logout"
