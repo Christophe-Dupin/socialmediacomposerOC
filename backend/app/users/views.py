@@ -103,3 +103,7 @@ def manage_channels(request):
     context = user.social_auth.all()
     print(context)
     return render(request, "users/accounts.html", {"context": context})
+
+
+def privacy_policy(request):
+    return render(request, "users/privacy_policy.html")
