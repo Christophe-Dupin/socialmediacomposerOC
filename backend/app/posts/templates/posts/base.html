@@ -224,6 +224,7 @@
                         </span>
                       </a>
                       {% endif %}
+                      {% if x.provider == 'twitter' %}
                       <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
                           height="35">
@@ -234,6 +235,18 @@
                           </span>
                         </span>
                       </a>
+                      {% else %}
+                      <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
+                        <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
+                          height="35">
+                        <span style="margin-left:8px" ;>
+                          <span
+                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                            Connect to twitter
+                          </span>
+                        </span>
+                      </a>
+                      {% endif %}
                       {% endfor %}
                       {% else %}
                       <a href="{% provider_login_url 'instagram' %}" class="connect-to-instagram">
