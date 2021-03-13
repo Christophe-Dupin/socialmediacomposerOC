@@ -182,7 +182,36 @@
                         </span>
                       </a>
                       {% endif %}
-                      {% providers_media_js %}
+                      {% if x.provider == 'facebook' %}
+                      <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline:none;">
+                        <div class="connected-to-linkedin">
+                          <li class="item-linkedin-li">
+                            <div class="item-linkedin-primary">
+                              <div class="item-linkedin-secondary">
+                                <a href="{% url 'all_posts_queue_facebook' %}">
+                                  <img border="0" alt="W3Schools" src="{{ user.image.url }}" width="35" height="35"
+                                    class="profile-picture">
+                                  <div class="item-linkedin-tertiary">
+                                    <svg color="white" viewBox="0 0 16 16" class="item-linkedin-svg">
+                                      <g>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M16 8.049C16 3.604 12.418 0 8 0S0 3.604 0 8.049C0 12.066 2.925 15.396 6.75 16v-5.624H4.719V8.049H6.75V6.276c0-2.018 1.194-3.132 3.022-3.132.875 0 1.79.157 1.79.157v1.981h-1.008c-.994 0-1.304.62-1.304 1.257v1.51h2.219l-.355 2.327H9.25V16c3.825-.604 6.75-3.934 6.75-7.951z">
+                                        </path>
+                                      </g>
+                                    </svg>
+                                  </div>
+                              </div>
+                              <div class="item-linkedin-username">
+                                <span
+                                  style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                                  {{ user.first_name }} {{ user.last_name }}
+                                </span></a>
+                              </div>
+                            </div>
+                          </li>
+                        </div>
+                      </div>
+                      {% else %}
                       <a href="{% provider_login_url 'facebook' process='connect' method='oauth2' next='/post/add_post/' %}"
                         class=" connect-to-facebook">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
@@ -194,6 +223,7 @@
                           </span>
                         </span>
                       </a>
+                      {% endif %}
                       <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
                           height="35">

@@ -121,7 +121,9 @@ def share_now_a_linkedin_post(request, id):
 
 @login_required
 def manage_my_channels(request):
-    user = request.user
-    social = user.social_auth.get()
-    context = social.provider
-    return render(request, "posts/manage_channels.html", {"context": context})
+    social_account = SocialAccount.objects.filter(user=request.user)
+    return render(
+        request,
+        "posts/manage_channels.html",
+        {"social_account": social_account},
+    )
