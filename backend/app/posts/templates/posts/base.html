@@ -183,7 +183,8 @@
                       </a>
                       {% endif %}
                       {% providers_media_js %}
-                      <a href='{% provider_login_url "facebook" process="connect" %}' class=" connect-to-facebook">
+                      <a href="{% provider_login_url " facebook" process="connect" method="oauth2" %}"
+                        class=" connect-to-facebook">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
                           height="35">
                         <span style="margin-left:8px" ;>
@@ -225,7 +226,7 @@
                           </span>
                         </span>
                       </a>
-                      <a href="{% provider_login_url 'facebook'%}" class=" connect-to-facebook">
+                      <a href="{% provider_login_url " facebook" process="connect" method="oauth2" %}">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
                           height="35">
                         <span style="margin-left:8px" ;>

@@ -42,11 +42,39 @@
                   Name
                 </div>
               </div>
+              {%for x in social_account%}
               <div>
-                {%for x in context%}
-                {{x.provider}}
-                {% endfor %}
+                <div class="list-item">
+                  <div class="list-col-1">
+                    <div class="avatar-channel">
+                      <img border="0" alt="W3Schools" src="{{ user.image.url }}" width="35" height="35"
+                        class="profile-picture">
+                    </div>
+                    <div class="list-col-username">
+                      <span class="list-item-name"> {{ user.first_name }} {{ user.last_name }}</span>
+                      <br>
+                      <span class="list-item-type">
+                        {{x.provider}}
+                      </span>
+                    </div>
+
+                  </div>
+                  <div class="list-col--rightaligned">
+                    <span>
+                      <a href="#" class="inline-remove-profile" data-bcup-haslogintext="no">
+                        <span>
+                          Remove
+
+                        </span>
+                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-cross.png'%}" width="35"
+                          height="35" class="cross-picture">
+                      </a>
+                    </span>
+                  </div>
+
+                </div>
               </div>
+              {% endfor %}
             </div>
           </div>
         </div>
