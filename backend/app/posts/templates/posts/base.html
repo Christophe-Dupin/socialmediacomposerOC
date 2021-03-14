@@ -142,18 +142,8 @@
                           </span>
                         </span>
                       </a>
-                      {% else %}
-                      <a href="#" class="connect-to-instagram">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
-                          height="35">
-                        <span style="margin-left:8px" ;>
-                          <span
-                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to Instagram
-                          </span>
-                        </span>
-                      </a>
                       {% endif %}
+                      {% if "facebook" in social_auth.not_associated.oauth2 %}
                       {% if ass.provider == 'linkedin-oauth2' %}
                       <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline:none;">
                         <div class="connected-to-linkedin">
@@ -206,17 +196,6 @@
                           </span>
                         </span>
                       </a>
-                      {% else %}
-                      <a href="{% url 'social:begin' 'facebook' %}" class=" connect-to-facebook">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
-                          height="35">
-                        <span style="margin-left:8px" ;>
-                          <span
-                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to facebook
-                          </span>
-                        </span>
-                      </a>
                       {% endif %}
                       {% if ass.provider == 'twitter' %}
                       <a href="#" class="connect-to-twitter">
@@ -229,30 +208,9 @@
                           </span>
                         </span>
                       </a>
-                      {% else %}
-                      <a href="#" class="connect-to-twitter">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
-                          height="35">
-                        <span style="margin-left:8px" ;>
-                          <span
-                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to Twitter
-                          </span>
-                        </span>
-                      </a>
                       {% endif %}
                       {% endfor %}
                       {% else %}
-                      <a href="#" class="connect-to-instagram">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
-                          height="35">
-                        <span style="margin-left:8px" ;>
-                          <span
-                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to Instagram
-                          </span>
-                        </span>
-                      </a>
                       <a href="{% url 'social:begin' 'linkedin-oauth2' %}" class="connect-to-linkedin">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-linkedin.png'%}" width="35"
                           height="35">
@@ -263,27 +221,6 @@
                           </span>
                         </span>
                       </a>
-                      <a href="{% url 'social:begin' 'facebook' %}" class=" connect-to-facebook">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
-                          height="35">
-                        <span style="margin-left:8px" ;>
-                          <span
-                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to facebook
-                          </span>
-                        </span>
-                      </a>
-                      <a href="#" class="connect-to-twitter">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
-                          height="35">
-                        <span style="margin-left:8px" ;>
-                          <span
-                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to twitter
-                          </span>
-                        </span>
-                      </a>
-                      {% endif %}
                       <div class="bottom-style-social-media">
                         <div class="bottom-style-social-media-divider">
                           <hr
