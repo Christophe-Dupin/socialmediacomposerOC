@@ -40,6 +40,8 @@ jobs:
 
       - name: Make DB Migrations
         run: docker-compose -f docker-compose.ci.yml exec -T django python manage.py migrate
+      - name: Run Django Tests
+        run: docker-compose -f docker-compose.ci.yml exec -T django pytest -vvv
 
       - name: Push images
         run: |

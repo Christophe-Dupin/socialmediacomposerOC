@@ -14,5 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Methode to launch the specifque commande."""
         all_post = Post.objects.get_all_post_on_queue()
-        for x in all_post:
-            print(x.schedule_time)
+        for post in all_post:
+            if post.schedule_time == datetime.now():
+                post.post_on_Linkedin()
+            print(post.schedule_time)

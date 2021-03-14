@@ -54,7 +54,7 @@ def register(request):
             return render(
                 request,
                 "users/register.html",
-                {"form": form, "messages": messages},
+                {"form": form},
             )
     else:
         form = SignUpForm()

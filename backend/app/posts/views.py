@@ -16,7 +16,6 @@ def add_post(request):
         form = PostForm(request.POST)
         print(form)
         if not form.is_valid():
-            print("tutu")
             return render(request, "posts/home.html", {"form": form})
         post = Post(
             body=form.cleaned_data["body"],
@@ -30,12 +29,13 @@ def add_post(request):
             # post.post_on_facebook()
     form = PostForm()
     social_account = SocialAccount.objects.filter(user=request.user)
+    test = [x.provider for x in social_account]
     return render(
         request,
         "posts/home.html",
         {
             "form": form,
-            "social_account": social_account,
+            "test": test,
         },
     )
 
