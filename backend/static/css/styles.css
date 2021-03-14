@@ -284,7 +284,6 @@
     display: inline-block;
     min-width:60px;
     text-align: center;
-    border-bottom: 2px solid rgb(44,75,255);
   }
   .queue{
     padding: 18px 13px 17px;
