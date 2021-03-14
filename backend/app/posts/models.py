@@ -13,14 +13,20 @@ class SocialMedia(models.Model):
 
 
 class PostManager(models.Manager):
-    def get_all_post_on_queue(self):
-        return self.filter(is_queue=True)
+    def get_all_post_on_queue(self, user):
+        return self.filter(
+            is_queue=True,
+            author=user,
+        )
 
-    def get_all_post_history(self):
-        return self.filter(is_send=True)
+    def get_all_post_history(self, user):
+        return self.filter(
+            is_send=True,
+            author=user,
+        )
 
-    def get_all_post_on_queue_by_social_media(self, socialmedia):
-        return self.filter(is_queue=True, socialmedia=socialmedia)
+    def get_all_post_on_queue_by_social_media(self, socialmedia, user):
+        return self.filter(is_queue=True, socialmedia=socialmedia, author=user)
 
     def delete_a_selected_post(self, pk):
         return self.filter(id=pk).delete()

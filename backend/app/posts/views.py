@@ -32,8 +32,7 @@ def add_post(request):
 
 @login_required
 def all_posts_queue(request):
-    post = Post.objects.get_all_post_on_queue()
-    print(post)
+    post = Post.objects.get_all_post_on_queue(request.user)
     return render(
         request,
         "posts/posts_queue.html",
@@ -44,7 +43,9 @@ def all_posts_queue(request):
 @login_required
 def all_posts_queue_linkedin(request):
     context = Post.objects.filter(
-        socialmedia__socialmedia__startswith="linkedin", is_queue=True
+        socialmedia__socialmedia__startswith="linkedin",
+        is_queue=True,
+        author=request.user,
     )
     return render(
         request, "posts/posts_linkedin_queue.html", {"context": context}
@@ -52,9 +53,11 @@ def all_posts_queue_linkedin(request):
 
 
 @login_required
-def all_posts_queue_facebook(request):
+def all_posts_queue_facebook(request, author):
     context = Post.objects.filter(
-        socialmedia__socialmedia__startswith="facebook", is_queue=True
+        socialmedia__socialmedia__startswith="facebook",
+        is_queue=True,
+        author=request.user,
     )
     return render(
         request, "posts/posts_facebook_queue.html", {"context": context}
@@ -63,7 +66,9 @@ def all_posts_queue_facebook(request):
 
 @login_required
 def all_posts_send(request):
-    context = Post.objects.get_all_post_history()
+    context = Post.objects.get_all_post_history(
+        author=request.user,
+    )
     return render(request, "posts/posts_history.html", {"context": context})
 
 
