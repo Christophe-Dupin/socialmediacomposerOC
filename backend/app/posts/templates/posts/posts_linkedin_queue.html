@@ -70,6 +70,15 @@
   {% endfor %}
 </div>
 {% else %}
-<h1>Aucun Post on queue</h1>
+<div style="margin-bottom: 1.5rem; width: 100%;">
+  <div class="main-history-header">
+    <span
+      style="font-family: Roboto, sans-serif; font-size: 1rem; margin-top:15px; font-weight: 400; color: rgb(0, 0, 0);">You
+      have
+      no post on queue</span>
+  </div>
+  <hr
+    style="border: none; height: 0.063rem; background: rgb(90, 90, 90); width: 100%; box-sizing: border-box; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+</div>
 {% endif %}
 {% endblock content %}
