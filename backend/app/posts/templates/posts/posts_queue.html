@@ -1,0 +1,69 @@
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="main-history">
+  <div style="display: flex;"></div>
+  {%for x in post%}
+  <div class="header-history">
+    <div class="header-history-first">
+      <h3 class="date-post-history">{{x.schedule_time.date}}</h3>
+    </div>
+  </div>
+  <div class="post-content-on-queue">
+    <div class="post-content-on-queue-secondary">
+      <div class="post-content-on-queue-tertiary">
+        <div class="post-content-on-queue-container">
+          <div class="post-content-on-queue-container-cards">
+            <div class="post-content-on-queue-container-cards-content">
+              <div class="post-content-on-queue-container-cards-content-secondary">
+                <span class="post-content-on-queue-container-cards-content-secondary-span">
+                  <span
+                    style="font-family: Roboto, sans-serif; font-size: 0.875rem; font-weight: 400; color: rgb(89, 98, 106); white-space: pre-wrap;">
+                    {{x.body}}
+                  </span>
+              </div>
+            </div>
+            <div class="post-on-queue-content-cards-footer">
+              <div class="post-on-queue-content-cards-footer-secondary">
+                <span class="post-on-queue-content-cards-footer-secondary-span">
+                  <p class="post-on-queue-content-cards-footer-secondary-p">This post will be send
+                    {{x.schedule_time.date}} (GMT)</p>
+                </span>
+              </div>
+              <span class="post-on-queue-content-cards-footer-boutton">
+                <div class="post-on-queue-content-cards-footer-boutton-delete">
+                  <div class="post-on-queue-content-cards-footer-boutton-delete-secondary">
+                    <a href="{% url 'delete_a_selected_post' x.id %}">
+                      <bouton aria-haspopup="false" class="share-now-boutton">
+                        <div class="boutton-edit">Delete</div>
+                      </bouton>
+                    </a>
+                  </div>
+                </div>
+                <span class="cards-separator"></span>
+                <div class="post-on-queue-content-cards-footer-boutton-delete ovveride">
+                  <div class="post-on-queue-content-cards-footer-boutton-delete-secondary">
+                    <bouton aria-haspopup="false" class="share-now-boutton">
+                      <div class="boutton-edit">Edit</div>
+                    </bouton>
+                  </div>
+                </div>
+                <div class="post-on-queue-content-cards-footer-boutton-delete ovveride">
+                  <div class="post-on-queue-content-cards-footer-boutton-delete-secondary">
+                    <bouton aria-haspopup="false" class="share-now-boutton">
+                      <div class="boutton-edit">Share Now</div>
+                    </bouton>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}

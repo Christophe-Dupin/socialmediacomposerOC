@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="your-channel-master-container">
+  <div class="your-channel-main-container">
+    <header class="header">
+      <div class='your-channel-secondary-container'>
+        <div class="header-logo">
+          <img src="{% static 'assets/image/logo.png'%}" width="20" height="20" alt="">
+          <span class="header-logo-span">
+            SocialMediaComposer
+          </span>
+        </div>
+        <nav class="header-nav">
+          <a href="#" class="header-nav-item">My dashboard</a>
+          <a href="#" class="header-nav-item">My account</a>
+        </nav>
+      </div>
+    </header>
+    <div class="your-channel-secondary-container">
+      <nav class="channels-nav">
+        <a class="nav-item-channel" href="#">Channels</a>
+      </nav>
+      <div class="main">
+        <div class="main-title">
+          <div class="main-title-secondary">
+
+
+          </div>
+
+        </div>
+        <div>
+          <header>
+            <div class="main-view-header">
+              <h1 class="main-view-header-title">Your Channels</h1>
+            </div>
+          </header>
+          <div class="main-body">
+            <div class="list">
+              <div class="list-header">
+                <div class="list-header-col list-col-1 list-col-primary">
+                  Name
+                </div>
+              </div>
+              {%for x in social_account%}
+              <div>
+                <div class="list-item">
+                  <div class="list-col-1">
+                    <div class="avatar-channel">
+                      <img border="0" alt="W3Schools" src="{{ user.image.url }}" width="35" height="35"
+                        class="profile-picture">
+                    </div>
+                    <div class="list-col-username">
+                      <span class="list-item-name"> {{ user.first_name }} {{ user.last_name }}</span>
+                      <br>
+                      <span class="list-item-type">
+                        {{x.provider}}
+                      </span>
+                    </div>
+
+                  </div>
+                  <div class="list-col--rightaligned">
+                    <span>
+                      <a href="#" class="inline-remove-profile" data-bcup-haslogintext="no">
+                        <span>
+                          Remove
+
+                        </span>
+                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-cross.png'%}" width="35"
+                          height="35" class="cross-picture">
+                      </a>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

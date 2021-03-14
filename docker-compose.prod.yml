@@ -1,29 +1,52 @@
-version: "3.7"
+version: "3"
+networks:
+  intern:
+    external: false
+  extern:
+    external: true
 
 services:
   django:
     image: "${WEB_IMAGE}"
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    container_name: socialmediacomposer_django
     volumes:
-      - static_volume:/usr/src/app/staticfiles
-
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/media
     expose:
       - 8000
-    env_file: .env
+    env_file:
+      - ./.env
+    networks:
+      - intern
+    depends_on:
+      - postgres
   nginx:
     image: "${NGINX_IMAGE}"
     volumes:
-      - static_volume:/usr/src/app/staticfiles
-    ports:
-      - 80:80
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/media
+    networks:
+      - intern
+      - extern
+    labels:
+      - traefik.http.routers.socialmediacomposer.rule=Host(`socialmediacomposer.com`)
+      - traefik.http.routers.socialmediacomposer.tls=true
+      - traefik.http.routers.socialmediacomposer.tls.certresolver=lets-encrypt
+      - traefik.port=80
     depends_on:
       - django
+
   postgres:
-    image: postgres:12.0-alpine
-    container_name: postgres
+    image: "postgres:latest"
+    container_name: socialmediacomposer_postgres_prod
+    networks:
+      - intern
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file: .env
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.prod.db
 volumes:
-  static_volume:
   postgres_data:
+  static_volume:
+  media_volume:

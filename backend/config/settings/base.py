@@ -4,9 +4,9 @@ Base settings to build other settings files upon.
 from pathlib import Path
 import os
 
-ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# test/
-APPS_DIR = ROOT_DIR / "app"
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -17,7 +17,7 @@ TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = "en-us"
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
-SITE_ID = 1
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
@@ -42,10 +42,13 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 THIRD_PARTY_APPS = [
-    "social_django",
+    "django.contrib.sites",
     "crispy_forms",
+    "bootstrap_datepicker_plus",
+    "social_django",
+    "bootstrap4",
 ]
-LOCAL_APPS = ["app.posts.apps.PostsConfig", "app.users.apps.UsersConfig"]
+LOCAL_APPS = ["app.posts", "app.users"]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -79,6 +82,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.linkedin.LinkedinOAuth2",
@@ -90,11 +94,15 @@ WSGI_APPLICATION = "config.wsgi.application"
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR / "static")]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "app/posts/static"),
+    os.path.join(BASE_DIR, "app/users/static"),
+]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -104,7 +112,7 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR / "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 AUTH_USER_MODEL = "users.User"
@@ -116,7 +124,7 @@ AUTH_USER_MODEL = "users.User"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(ROOT_DIR, "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -124,19 +132,60 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
 ]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "app-home"
+LOGIN_REDIRECT_URL = "add_post"
 LOGOUT_URL = "logout"
 LOGOUT_REDIRECT_URL = "login"
+DATE_INPUT_FORMATS = ["%d-%m-%Y"]
+# EMAIL SMTP------------------------
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# FACEBOOK AUTH------------------------
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY")
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET")
+SOCIAL_AUTH_FACEBOOK_SCOPE = ["email", "user_link"]
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    "fields": "id, name, email, picture.type(large), link"
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
+    ("name", "name"),
+    ("email", "email"),
+    ("picture", "picture"),
+    ("link", "profile_url"),
+]
+# LINKEDIN AUTH------------------------
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = "86pddb1z2hflqp"
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = "qiWf2A5G4Tck3kqW"
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "add_post"
+SOCIAL_AUTH_LOGIN_URL = "/"
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = [
+    "r_liteprofile",
+    "r_emailaddress",
+    "w_member_social",
+]
+SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = [
+    "email-address",
+    "formatted-name",
+    "public-profile-url",
+    "picture-url",
+]
+SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [
+    ("id", "id"),
+    ("formattedName", "name"),
+    ("emailAddress", "email_address"),
+    ("pictureUrl", "picture_url"),
+    ("publicProfileUrl", "profile_url"),
+]

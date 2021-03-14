@@ -1,10 +1,40 @@
 <!-- templates/home.html -->
-{% extends "base.html" %}
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_form form %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_formset date %}
+{% load static %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col-sm-12 mb-3">
-    <h4 class="text-center"> Welcome In social Media composer Home Page</h4>
+
+<div class="post-page">
+  <div class="main-post-page">
+    <div class="main-post-page-form">
+      <form method="POST" class="post-form">
+        {% csrf_token %}
+        <div class="main-post-page-form-body body">
+          {{ form.body|as_crispy_field }}
+        </div>
+        <div class="main-post-page-form-social-media socia-media">
+          {{ form.socialmedia|as_crispy_field }}
+        </div>
+        <div class="main-post-page-form-social-media schedule-time">
+          {{ form.schedule_time|as_crispy_field }}
+        </div>
+        <div class="main-post-page-form-social-media-boutton">
+          <button type="submit" class="btn btn-primary boutton">Send</button>
+        </div>
+    </div>
   </div>
 </div>
+
+
+<script>
+  $("#id_schedule_time").datetimepicker({
+    format: 'd/m/Y H:i',
+  });
+</script>
 {% endblock content %}

@@ -2,17 +2,19 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
-from django.contrib.auth import views as auth_views
-from app.users.forms import UserUpdateForm
 
-# from django.contrib import messages
+from app.users.forms import UserUpdateForm
 from app.users.models import User
 
 from .forms import SignUpForm
+
+
+def login(request):
+    return render(request, "users/login.html")
 
 
 def register(request):
@@ -24,7 +26,10 @@ def register(request):
                 form.cleaned_data["email"],
                 form.cleaned_data["password"],
             )
+            user.first_name = form.cleaned_data["first_name"]
+            user.first_name = form.cleaned_data["last_name"]
             user.is_active = False
+
             user.save()
             current_site = get_current_site(request)
             mail_subject = "Activer votre compte."
@@ -41,11 +46,15 @@ def register(request):
             email.send()
             messages.success(
                 request,
-                f'{"Votre compte a bien été crée, merci de confimer!"}',
+                f'{"Votre compte a bien été crée, un mail vous a été envoyé pour confirmer votre inscription!"}',
             )
             return redirect("profile")
         else:
-            return render(request, "users/register.html", {"form": form})
+            return render(
+                request,
+                "users/register.html",
+                {"form": form},
+            )
     else:
         form = SignUpForm()
 
@@ -61,10 +70,13 @@ def profile(request):
         user_form = UserUpdateForm(
             request.POST, request.FILES, instance=request.user
         )
+        print(request.user)
         if user_form.is_valid():
             user_form.save()
             messages.success(request, f'{"Your account has been updated!"}')
-            return redirect("/")
+            return redirect("all_posts_queue")
+        else:
+            print("tutu")
     else:
         user_form = UserUpdateForm(instance=request.user)
     context = {"user_form": user_form}
@@ -84,3 +96,15 @@ def activate(request, uidb64):
         return redirect("login")
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         None
+
+
+@login_required
+def manage_channels(request):
+    user = request.user
+    context = user.social_auth.all()
+    print(context)
+    return render(request, "users/accounts.html", {"context": context})
+
+
+def privacy_policy(request):
+    return render(request, "users/privacy_policy.html")

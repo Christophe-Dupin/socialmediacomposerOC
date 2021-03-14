@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path("register/", views.register, name="register"),
     path(
-        "login/",
+        "",
         auth_views.LoginView.as_view(template_name="users/login.html"),
         name="login",
     ),
@@ -45,4 +45,6 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("manage_channels/", views.manage_channels, name="manage_channels"),
+    path("privacy_policy/", views.privacy_policy, name="privacy_policy"),
 ]

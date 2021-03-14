@@ -1,21 +1,110 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Post
+from app.users.models import User
+from .forms import PostForm
 
 
 def login(request):
     return render(request, "login.html")
 
 
-def home(request):
-    return render(request, "posts/home.html")
+@login_required
+def add_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if not form.is_valid():
+            print("tutu")
+            return render(request, "posts/home.html", {"form": form})
+        post = Post(
+            body=form.cleaned_data["body"],
+            schedule_time=form.cleaned_data["schedule_time"],
+            author=request.user,
+        )
+        post.save()
+        for x in form.cleaned_data["socialmedia"]:
+            post.socialmedia.add(x.id)
+            # post.post_on_Linkedin()
+            # post.post_on_facebook()
+    form = PostForm()
+    return render(request, "posts/home.html", {"form": form})
 
 
 @login_required
 def all_posts_queue(request):
-    return render(request, "posts/posts.html")
+    post = Post.objects.get_all_post_on_queue(request.user)
+    return render(
+        request,
+        "posts/posts_queue.html",
+        {"post": post},
+    )
+
+
+@login_required
+def all_posts_queue_linkedin(request):
+    context = Post.objects.filter(
+        socialmedia__socialmedia__startswith="linkedin",
+        is_queue=True,
+        author=request.user,
+    )
+    return render(
+        request, "posts/posts_linkedin_queue.html", {"context": context}
+    )
+
+
+@login_required
+def all_posts_queue_facebook(request, author):
+    context = Post.objects.filter(
+        socialmedia__socialmedia__startswith="facebook",
+        is_queue=True,
+        author=request.user,
+    )
+    return render(
+        request, "posts/posts_facebook_queue.html", {"context": context}
+    )
 
 
 @login_required
 def all_posts_send(request):
-    return render(request, "posts/posts_history.html")
+    context = Post.objects.get_all_post_history(
+        request.user,
+    )
+    return render(request, "posts/posts_history.html", {"context": context})
+
+
+@login_required
+def delete_a_selected_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect("all_posts_queue_linkedin")
+
+
+@login_required
+def delete_a_linkedin_selected_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect("all_posts_queue_linkedin")
+
+
+@login_required
+def delete_a_facebook_selected_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect("all_posts_queue_facebook")
+
+
+@login_required
+def share_now_a_linkedin_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.post_on_Linkedin()
+    post.is_queue = False
+    post.is_send = True
+    post.save()
+    return redirect("all_posts_queue_linkedin")
+
+
+@login_required
+def manage_my_channels(request):
+    user = request.user
+    social = user.social_auth.get()
+    return render(request, "posts/manage_channels.html", {"social": social})

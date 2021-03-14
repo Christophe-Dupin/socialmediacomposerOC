@@ -7,13 +7,27 @@
     <div class="d-flex justify-content-center profile ">
       <img class="rounded-circle account-img" src="{{ user.image.url }}">
 
-      <form method="POST" enctype="multipart/form-data">
+      <form method="POST" class="user-form" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
-          <legend class="border-bottom mb-4"> Welcome {{ user.username }}</legend>
-          {{ user_form|crispy }}
+          <legend class="border-bottom mb-4 username"> Welcome {{ user.first_name }}</legend>
+          <div class="main-post-page-form-body username">
+            {{ user_form.username|as_crispy_field }}
+          </div>
+          <div class="main-post-page-form-body username">
+            {{ user_form.first_name|as_crispy_field }}
+          </div>
+          <div class="main-post-page-form-body username">
+            {{ user_form.last_name|as_crispy_field }}
+          </div>
+          <div class="main-post-page-form-body email">
+            {{ user_form.email|as_crispy_field }}
+          </div>
+          <div class="main-post-page-form-body image">
+            {{ user_form.image|as_crispy_field }}
+          </div>
         </fieldset>
-        <div class="form-group">
+        <div class="form-group boutton">
           <button class="btn btn-outline-info" type="submit">Update</button>
         </div>
       </form>
