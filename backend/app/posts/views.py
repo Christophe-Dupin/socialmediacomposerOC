@@ -67,7 +67,7 @@ def all_posts_queue_facebook(request, author):
 @login_required
 def all_posts_send(request):
     context = Post.objects.get_all_post_history(
-        author=request.user,
+        request.user,
     )
     return render(request, "posts/posts_history.html", {"context": context})
 
@@ -76,7 +76,7 @@ def all_posts_send(request):
 def delete_a_selected_post(request, id):
     post = get_object_or_404(Post, id=id)
     post.delete()
-    return redirect("all_posts_queue")
+    return redirect("all_posts_queue_linkedin")
 
 
 @login_required
