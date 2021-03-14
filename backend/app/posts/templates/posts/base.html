@@ -184,7 +184,7 @@
                         </div>
                       </div>
                       {% else %}
-                      <a href="{% provider_login_url 'linkedin_oauth2' next='/post/add_post/' %}"
+                      <a href="{% provider_login_url 'linkedin_oauth2' process='connect'  next='/post/add_post/' %}"
                         class="connect-to-linkedin">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-Linkedin.png'%}" width="35"
                           height="35">
