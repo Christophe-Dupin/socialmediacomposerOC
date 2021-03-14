@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from allauth.socialaccount.models import SocialAccount
 from .models import Post
 from app.users.models import User
 from .forms import PostForm
@@ -14,8 +13,8 @@ def login(request):
 def add_post(request):
     if request.method == "POST":
         form = PostForm(request.POST)
-        print(form)
         if not form.is_valid():
+            print("tutu")
             return render(request, "posts/home.html", {"form": form})
         post = Post(
             body=form.cleaned_data["body"],
@@ -28,26 +27,17 @@ def add_post(request):
             # post.post_on_Linkedin()
             # post.post_on_facebook()
     form = PostForm()
-    social_account = SocialAccount.objects.filter(user=request.user)
-    test = [x.provider for x in social_account]
-    return render(
-        request,
-        "posts/home.html",
-        {
-            "form": form,
-            "test": test,
-        },
-    )
+    return render(request, "posts/home.html", {"form": form})
 
 
 @login_required
 def all_posts_queue(request):
     post = Post.objects.get_all_post_on_queue()
-    social_account = SocialAccount.objects.filter(user=request.user)
+    print(post)
     return render(
         request,
         "posts/posts_queue.html",
-        {"post": post, "social_account": social_account},
+        {"post": post},
     )
 
 
@@ -56,11 +46,8 @@ def all_posts_queue_linkedin(request):
     context = Post.objects.filter(
         socialmedia__socialmedia__startswith="linkedin", is_queue=True
     )
-    social_account = SocialAccount.objects.filter(user=request.user)
     return render(
-        request,
-        "posts/posts_linkedin_queue.html",
-        {"context": context, "social_account": social_account},
+        request, "posts/posts_linkedin_queue.html", {"context": context}
     )
 
 
@@ -69,23 +56,15 @@ def all_posts_queue_facebook(request):
     context = Post.objects.filter(
         socialmedia__socialmedia__startswith="facebook", is_queue=True
     )
-    social_account = SocialAccount.objects.filter(user=request.user)
     return render(
-        request,
-        "posts/posts_facebook_queue.html",
-        {"context": context, "social_account": social_account},
+        request, "posts/posts_facebook_queue.html", {"context": context}
     )
 
 
 @login_required
 def all_posts_send(request):
     context = Post.objects.get_all_post_history()
-    social_account = SocialAccount.objects.filter(user=request.user)
-    return render(
-        request,
-        "posts/posts_history.html",
-        {"context": context, "social_account": social_account},
-    )
+    return render(request, "posts/posts_history.html", {"context": context})
 
 
 @login_required
@@ -112,7 +91,7 @@ def delete_a_facebook_selected_post(request, id):
 @login_required
 def share_now_a_linkedin_post(request, id):
     post = get_object_or_404(Post, id=id)
-    post.post_on_Linkedin(request)
+    post.post_on_Linkedin()
     post.is_queue = False
     post.is_send = True
     post.save()
@@ -121,9 +100,7 @@ def share_now_a_linkedin_post(request, id):
 
 @login_required
 def manage_my_channels(request):
-    social_account = SocialAccount.objects.filter(user=request.user)
-    return render(
-        request,
-        "posts/manage_channels.html",
-        {"social_account": social_account},
-    )
+    user = request.user
+    social = user.social_auth.get()
+    context = social.provider
+    return render(request, "posts/manage_channels.html", {"context": context})

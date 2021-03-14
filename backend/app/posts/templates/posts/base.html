@@ -1,6 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
-{% load socialaccount %}
+
 <!doctype html>
 <html lang="en">
 
@@ -129,21 +129,21 @@
                 <div class="side-bar-wrapper-profile-bar-style">
                   <div class="side-bar-wrapper-profile-bar-style-social-account">
                     <div class="side-bar-wrapper-profile-bar-style-social-account-button">
-                      {% if test %}
-                      {% for x in test%}
-                      {% if x == 'instagram' %}
-                      <a href="{% provider_login_url 'instagram' %}" class="connect-to-instagram">
+                      {% if backends.associated %}
+                      {% for ass in backends.associated %}
+                      {% if ass.provider == 'instagram' %}
+                      <a href="#" class="connect-to-instagram">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
                           height="35">
                         <span style="margin-left:8px" ;>
                           <span
                             style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to Instagram
+                            {{ user.first_name }} {{ user.last_name }}
                           </span>
                         </span>
                       </a>
                       {% else %}
-                      <a href="{% provider_login_url 'instagram' %}" class="connect-to-instagram">
+                      <a href="#" class="connect-to-instagram">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
                           height="35">
                         <span style="margin-left:8px" ;>
@@ -154,7 +154,7 @@
                         </span>
                       </a>
                       {% endif %}
-                      {% if x == 'linkedin_oauth2' %}
+                      {% if ass.provider == 'linkedin-oauth2' %}
                       <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline:none;">
                         <div class="connected-to-linkedin">
                           <li class="item-linkedin-li">
@@ -184,9 +184,8 @@
                         </div>
                       </div>
                       {% else %}
-                      <a href="{% provider_login_url 'linkedin_oauth2' process='connect'  next='/post/add_post/' %}"
-                        class="connect-to-linkedin">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-Linkedin.png'%}" width="35"
+                      <a href="{% url 'social:begin' 'linkedin-oauth2' %}" class="connect-to-linkedin">
+                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-linkedin.png'%} width=" 35"
                           height="35">
                         <span style="margin-left:8px" ;>
                           <span
@@ -196,38 +195,19 @@
                         </span>
                       </a>
                       {% endif %}
-                      {% if x == 'facebook' %}
-                      <div aria-dropeffect="move" draggable="true" tabindex="0" style="outline:none;">
-                        <div class="connected-to-linkedin">
-                          <li class="item-linkedin-li">
-                            <div class="item-linkedin-primary">
-                              <div class="item-linkedin-secondary">
-                                <a href="{% url 'all_posts_queue_facebook' %}">
-                                  <img border="0" alt="W3Schools" src="{{ user.image.url }}" width="35" height="35"
-                                    class="profile-picture">
-                                  <div class="item-linkedin-tertiary">
-                                    <svg color="white" viewBox="0 0 16 16" class="item-linkedin-svg">
-                                      <g>
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                          d="M16 8.049C16 3.604 12.418 0 8 0S0 3.604 0 8.049C0 12.066 2.925 15.396 6.75 16v-5.624H4.719V8.049H6.75V6.276c0-2.018 1.194-3.132 3.022-3.132.875 0 1.79.157 1.79.157v1.981h-1.008c-.994 0-1.304.62-1.304 1.257v1.51h2.219l-.355 2.327H9.25V16c3.825-.604 6.75-3.934 6.75-7.951z">
-                                        </path>
-                                      </g>
-                                    </svg>
-                                  </div>
-                              </div>
-                              <div class="item-linkedin-username">
-                                <span
-                                  style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                                  {{ user.first_name }} {{ user.last_name }}
-                                </span></a>
-                              </div>
-                            </div>
-                          </li>
-                        </div>
-                      </div>
+                      {% if ass.provider == 'facebook' %}
+                      <a href="{% url 'all_posts_queue_facebook' %}" class=" connect-to-facebook">
+                        <img border="0" alt="W3Schools" src="{ user.image.url }}" width="35" height="35"
+                          class="profile-picture">
+                        <span style="margin-left:8px" ;>
+                          <span
+                            style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
+                            {{ user.first_name }} {{ user.last_name }}
+                          </span>
+                        </span>
+                      </a>
                       {% else %}
-                      <a href="{% provider_login_url 'facebook' process='connect' method='oauth2' next='/post/add_post/' %}"
-                        class="connect-to-linkedin">
+                      <a href="{% url 'social:begin' 'facebook' %}" class=" connect-to-facebook">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
                           height="35">
                         <span style="margin-left:8px" ;>
@@ -238,32 +218,32 @@
                         </span>
                       </a>
                       {% endif %}
-                      {% if x == 'twitter' %}
-                      <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
-                          height="35">
+                      {% if ass.provider == 'twitter' %}
+                      <a href="#" class="connect-to-twitter">
+                        <img border="0" alt="W3Schools" src="{ user.image.url }}" width="35" height="35"
+                          class="profile-picture">
                         <span style="margin-left:8px" ;>
                           <span
                             style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to twitter
+                            {{ user.first_name }} {{ user.last_name }}
                           </span>
                         </span>
                       </a>
                       {% else %}
-                      <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
+                      <a href="#" class="connect-to-twitter">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
                           height="35">
                         <span style="margin-left:8px" ;>
                           <span
                             style="font-family: Roboto , sans-serif; font-size: 0.75rem; font-weight: 700; color: rgb(89,98,106)">
-                            Connect to twitter
+                            Connect to Twitter
                           </span>
                         </span>
                       </a>
                       {% endif %}
                       {% endfor %}
                       {% else %}
-                      <a href="{% provider_login_url 'instagram' %}" class="connect-to-instagram">
+                      <a href="#" class="connect-to-instagram">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-instagram.png'%}" width="35"
                           height="35">
                         <span style="margin-left:8px" ;>
@@ -273,8 +253,8 @@
                           </span>
                         </span>
                       </a>
-                      <a href="{% provider_login_url 'linkedin_oauth2' %}" class="connect-to-linkedin">
-                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-Linkedin.png'%}" width="35"
+                      <a href="{% url 'social:begin' 'linkedin-oauth2' %}" class="connect-to-linkedin">
+                        <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-linkedin.png'%}" width="35"
                           height="35">
                         <span style="margin-left:8px" ;>
                           <span
@@ -283,8 +263,7 @@
                           </span>
                         </span>
                       </a>
-                      <a href="{% provider_login_url 'facebook' process='connect' method='oauth2' next='/post/add_post/' %}"
-                        class="connect-to-linkedin">
+                      <a href="{% url 'social:begin' 'facebook' %}" class=" connect-to-facebook">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/logo-facebook.png'%}" width="29"
                           height="35">
                         <span style="margin-left:8px" ;>
@@ -294,7 +273,7 @@
                           </span>
                         </span>
                       </a>
-                      <a href="{% provider_login_url 'twitter' %}" class="connect-to-twitter">
+                      <a href="#" class="connect-to-twitter">
                         <img border="0" alt="W3Schools" src="{% static 'assets/image/twitter-log.png'%}" width="35"
                           height="35">
                         <span style="margin-left:8px" ;>
@@ -305,7 +284,6 @@
                         </span>
                       </a>
                       {% endif %}
-
                       <div class="bottom-style-social-media">
                         <div class="bottom-style-social-media-divider">
                           <hr

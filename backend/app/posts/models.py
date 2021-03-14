@@ -1,7 +1,6 @@
 from django.db import models
 from app.users.models import User
-from allauth.socialaccount.models import SocialAccount
-from allauth.socialaccount.models import SocialToken
+
 import os
 import requests
 
@@ -38,21 +37,18 @@ class Post(models.Model):
     socialmedia = models.ManyToManyField(SocialMedia)
     objects = PostManager()
 
-    def post_on_Linkedin(self, request):
+    def post_on_Linkedin(self):
         api_url = "https://api.linkedin.com/v2/ugcPosts"
         user = User.objects.get(username=self.author)
-        access_token = SocialToken.objects.get(
-            account__user=user.id, account__provider="linkedin_oauth2"
-        )
+        social = user.social_auth.get(provider="linkedin-oauth2")
+        access_token = social.extra_data["access_token"]
         headers = {
             "X-Restli-Protocol-Version": "2.0.0",
             "Content-Type": "application/json",
             "Authorization": f"Bearer {access_token}",
         }
-        urn = SocialAccount.objects.filter(
-            user=request.user, provider="linkedin_oauth2"
-        )
-        author = f"urn:li:person:{urn[0].uid}"
+        urn = social.extra_data["id"]
+        author = f"urn:li:person:{urn}"
         post_data = {
             "author": author,
             "lifecycleState": "PUBLISHED",
@@ -65,28 +61,6 @@ class Post(models.Model):
             "visibility": {
                 "com.linkedin.ugc.MemberNetworkVisibility": "CONNECTIONS"
             },
-        }
-        response = requests.post(api_url, headers=headers, json=post_data)
-
-        if response.status_code == 201:
-            print("Success")
-        print(response.content)
-
-    def post_on_facebook(self):
-        user = User.objects.get(username="cdupin")
-        social = user.social_auth.get(provider="facebook")
-        id = social.extra_data["id"]
-        access_token = social.extra_data["access_token"]
-        api_url = f"https://graph.facebook.com/{id}/feed"
-        headers = {
-            "X-Restli-Protocol-Version": "2.0.0",
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {access_token}",
-        }
-        post_data = {
-            "published": "true",
-            "message": {"text": self.body},
-            "access_token": access_token,
         }
         response = requests.post(api_url, headers=headers, json=post_data)
 

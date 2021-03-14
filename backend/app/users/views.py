@@ -6,7 +6,6 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
-from allauth.socialaccount.models import SocialAccount
 
 from app.users.forms import UserUpdateForm
 from app.users.models import User
@@ -101,19 +100,10 @@ def activate(request, uidb64):
 
 @login_required
 def manage_channels(request):
-    social_account = SocialAccount.objects.filter(user=request.user)
-    return render(
-        request, "users/accounts.html", {"social_account": social_account}
-    )
-
-
-@login_required
-def delete_channels(request, provider):
-    provider
-    social_account = SocialAccount.objects.filter(user=request.user)
-    return render(
-        request, "users/accounts.html", {"social_account": social_account}
-    )
+    user = request.user
+    context = user.social_auth.all()
+    print(context)
+    return render(request, "users/accounts.html", {"context": context})
 
 
 def privacy_policy(request):
