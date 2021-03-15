@@ -9,6 +9,10 @@ def login(request):
     return render(request, "login.html")
 
 
+def help(request):
+    return render(request, "posts/help.html")
+
+
 @login_required
 def add_post(request):
     if request.method == "POST":

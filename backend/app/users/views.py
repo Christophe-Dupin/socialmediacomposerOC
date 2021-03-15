@@ -44,7 +44,7 @@ def register(request):
             )
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
-            messages.success(
+            message_success = messages.success(
                 request,
                 f'{"Votre compte a bien été crée, un mail vous a été envoyé pour confirmer votre inscription!"}',
             )
@@ -58,7 +58,13 @@ def register(request):
     else:
         form = SignUpForm()
 
-    return render(request, "users/register.html", {"form": form})
+    return render(
+        request,
+        "users/register.html",
+        {
+            "form": form,
+        },
+    )
 
     return render(request, "users/register.html", {"form": form})
 
