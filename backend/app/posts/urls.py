@@ -46,4 +46,9 @@ urlpatterns = [
         views.manage_my_channels,
         name="manage_my_channels",
     ),
+    path(
+        "help/",
+        views.help,
+        name="help",
+    ),
 ]

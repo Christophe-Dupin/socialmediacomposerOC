@@ -38,7 +38,7 @@
   <link href="{% static 'users/css/styles.css'%}" rel="stylesheet" />
   <link href="{% static 'posts/css/styles.css'%}" rel="stylesheet" />
   <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
-  <script src="{% static 'posts/js/main.js' %}"></script>
+
 </head>
 
 <body>
@@ -84,7 +84,7 @@
         <nav class="nav-user">
           <ul class="help-menu-ul">
             <li class="help-menu-li">
-              <a class="help-menu-a">
+              <a href="{% url 'help' %}" class="help-menu-a">
                 <svg viewBox="0 0 16 16" class="help-menu-svg">
                   <g>
                     <path fill-rule="evenodd" clip-rule="evenodd"

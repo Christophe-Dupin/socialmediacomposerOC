@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
-  {% endfor %}
-</ul>
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
 {% endif %}
 <div class="container-fluide main_content">
   <div class="row justify-content-center wall_register">
